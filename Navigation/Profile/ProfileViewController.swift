@@ -1,4 +1,5 @@
 import UIKit
+import StorageService
 
 enum ProfileSections: Int, CaseIterable {
     
@@ -66,6 +67,12 @@ class ProfileViewController: UIViewController {
         
         setupViews()
         setupConstraints()
+        
+        #if DEBUG
+        view.backgroundColor = .gray
+        #else
+        view.backgroundColor = .white
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,8 +83,6 @@ class ProfileViewController: UIViewController {
     
     
     private func setupViews() {
-        
-        view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(overlayView)
         overlayView.addSubview(closeButton)

@@ -1,16 +1,16 @@
 import UIKit
 
-struct Post {
+public struct Post {
     
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
+    public var author: String
+    public var description: String
+    public var image: String
+    public var likes: Int
+    public var views: Int
 }
 
 
-var posts: [Post] = [
+public var posts: [Post] = [
 
     Post(
         author: "Royal Mail",

@@ -12,12 +12,18 @@
 		F4B31B4B2A27D29E00AEAF59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B4A2A27D29E00AEAF59 /* ViewController.swift */; };
 		F4B31B502A27D29F00AEAF59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B31B4F2A27D29F00AEAF59 /* Assets.xcassets */; };
 		F4B31B532A27D29F00AEAF59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B31B512A27D29F00AEAF59 /* LaunchScreen.storyboard */; };
-		F4B31B9B2A288FE400AEAF59 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B9A2A288FE400AEAF59 /* Post.swift */; };
 		F4BAD41C2A32FF3F006D3C90 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BAD41B2A32FF3F006D3C90 /* ProfileHeaderView.swift */; };
 		F4C12C802A28EE750008B003 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C12C7F2A28EE750008B003 /* FeedViewController.swift */; };
 		F4C12C822A28EE850008B003 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C12C812A28EE850008B003 /* InfoViewController.swift */; };
 		F4C12C842A28EE950008B003 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C12C832A28EE950008B003 /* PostViewController.swift */; };
 		F4C12C862A28EEA90008B003 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C12C852A28EEA90008B003 /* ProfileViewController.swift */; };
+		F4F66DF72A728DF200127162 /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = F4F66DF62A728DF200127162 /* StorageService.docc */; };
+		F4F66DFD2A728DF200127162 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; };
+		F4F66E042A728DF200127162 /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F66E032A728DF200127162 /* StorageServiceTests.swift */; };
+		F4F66E052A728DF200127162 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F66DF52A728DF200127162 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4F66E082A728DF200127162 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; };
+		F4F66E092A728DF200127162 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4F66E112A728E0300127162 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B9A2A288FE400AEAF59 /* Post.swift */; };
 		F4FD29332A39F8E900C4A766 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD29322A39F8E900C4A766 /* LogInViewController.swift */; };
 		F4FD29592A3B2AC600C4A766 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD29582A3B2AC600C4A766 /* PostTableViewCell.swift */; };
 		F4FD2A662A42FC7E00C4A766 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD2A652A42FC7E00C4A766 /* PhotosTableViewCell.swift */; };
@@ -25,6 +31,44 @@
 		F4FD2A6A2A4317C300C4A766 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD2A692A4317C300C4A766 /* PhotosViewController.swift */; };
 		F4FD2A6C2A43208300C4A766 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD2A6B2A43208300C4A766 /* PhotosCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F4F66DFE2A728DF200127162 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4B31B3B2A27D29E00AEAF59 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4F66DF22A728DF200127162;
+			remoteInfo = StorageService;
+		};
+		F4F66E002A728DF200127162 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4B31B3B2A27D29E00AEAF59 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4B31B422A27D29E00AEAF59;
+			remoteInfo = Navigation;
+		};
+		F4F66E062A728DF200127162 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4B31B3B2A27D29E00AEAF59 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4F66DF22A728DF200127162;
+			remoteInfo = StorageService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F4F66E0A2A728DF200127162 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F4F66E092A728DF200127162 /* StorageService.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F4B31B432A27D29E00AEAF59 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +84,11 @@
 		F4C12C812A28EE850008B003 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		F4C12C832A28EE950008B003 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		F4C12C852A28EEA90008B003 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F4F66DF32A728DF200127162 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F66DF52A728DF200127162 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		F4F66DF62A728DF200127162 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
+		F4F66DFC2A728DF200127162 /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F66E032A728DF200127162 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		F4FD29322A39F8E900C4A766 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		F4FD29582A3B2AC600C4A766 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		F4FD2A652A42FC7E00C4A766 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
@@ -53,6 +102,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F66E082A728DF200127162 /* StorageService.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F66DF02A728DF200127162 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F66DF92A728DF200127162 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F66DFD2A728DF200127162 /* StorageService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				F4B31B452A27D29E00AEAF59 /* Navigation */,
+				F4F66DF42A728DF200127162 /* StorageService */,
+				F4F66E022A728DF200127162 /* StorageServiceTests */,
 				F4B31B442A27D29E00AEAF59 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				F4B31B432A27D29E00AEAF59 /* Navigation.app */,
+				F4F66DF32A728DF200127162 /* StorageService.framework */,
+				F4F66DFC2A728DF200127162 /* StorageServiceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,7 +158,6 @@
 				F4C12C7F2A28EE750008B003 /* FeedViewController.swift */,
 				F4C12C812A28EE850008B003 /* InfoViewController.swift */,
 				F4C12C832A28EE950008B003 /* PostViewController.swift */,
-				F4B31B9A2A288FE400AEAF59 /* Post.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -105,6 +173,24 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		F4F66DF42A728DF200127162 /* StorageService */ = {
+			isa = PBXGroup;
+			children = (
+				F4B31B9A2A288FE400AEAF59 /* Post.swift */,
+				F4F66DF52A728DF200127162 /* StorageService.h */,
+				F4F66DF62A728DF200127162 /* StorageService.docc */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
+		F4F66E022A728DF200127162 /* StorageServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4F66E032A728DF200127162 /* StorageServiceTests.swift */,
+			);
+			path = StorageServiceTests;
+			sourceTree = "<group>";
+		};
 		F4FD2A6D2A432C2900C4A766 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +204,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		F4F66DEE2A728DF200127162 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F66E052A728DF200127162 /* StorageService.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		F4B31B422A27D29E00AEAF59 /* Navigation */ = {
 			isa = PBXNativeTarget;
@@ -126,15 +223,54 @@
 				F4B31B3F2A27D29E00AEAF59 /* Sources */,
 				F4B31B402A27D29E00AEAF59 /* Frameworks */,
 				F4B31B412A27D29E00AEAF59 /* Resources */,
+				F4F66E0A2A728DF200127162 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F4F66E072A728DF200127162 /* PBXTargetDependency */,
 			);
 			name = Navigation;
 			productName = Navigation;
 			productReference = F4B31B432A27D29E00AEAF59 /* Navigation.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F4F66DF22A728DF200127162 /* StorageService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4F66E0F2A728DF200127162 /* Build configuration list for PBXNativeTarget "StorageService" */;
+			buildPhases = (
+				F4F66DEE2A728DF200127162 /* Headers */,
+				F4F66DEF2A728DF200127162 /* Sources */,
+				F4F66DF02A728DF200127162 /* Frameworks */,
+				F4F66DF12A728DF200127162 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StorageService;
+			productName = StorageService;
+			productReference = F4F66DF32A728DF200127162 /* StorageService.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F4F66DFB2A728DF200127162 /* StorageServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4F66E102A728DF200127162 /* Build configuration list for PBXNativeTarget "StorageServiceTests" */;
+			buildPhases = (
+				F4F66DF82A728DF200127162 /* Sources */,
+				F4F66DF92A728DF200127162 /* Frameworks */,
+				F4F66DFA2A728DF200127162 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4F66DFF2A728DF200127162 /* PBXTargetDependency */,
+				F4F66E012A728DF200127162 /* PBXTargetDependency */,
+			);
+			name = StorageServiceTests;
+			productName = StorageServiceTests;
+			productReference = F4F66DFC2A728DF200127162 /* StorageServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -148,6 +284,13 @@
 				TargetAttributes = {
 					F4B31B422A27D29E00AEAF59 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					F4F66DF22A728DF200127162 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					F4F66DFB2A728DF200127162 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = F4B31B422A27D29E00AEAF59;
 					};
 				};
 			};
@@ -165,6 +308,8 @@
 			projectRoot = "";
 			targets = (
 				F4B31B422A27D29E00AEAF59 /* Navigation */,
+				F4F66DF22A728DF200127162 /* StorageService */,
+				F4F66DFB2A728DF200127162 /* StorageServiceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -176,6 +321,20 @@
 			files = (
 				F4B31B532A27D29F00AEAF59 /* LaunchScreen.storyboard in Resources */,
 				F4B31B502A27D29F00AEAF59 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F66DF12A728DF200127162 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F66DFA2A728DF200127162 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +355,6 @@
 				F4FD2A682A42FD3F00C4A766 /* Photo.swift in Sources */,
 				F4C12C822A28EE850008B003 /* InfoViewController.swift in Sources */,
 				F4C12C862A28EEA90008B003 /* ProfileViewController.swift in Sources */,
-				F4B31B9B2A288FE400AEAF59 /* Post.swift in Sources */,
 				F4FD2A6C2A43208300C4A766 /* PhotosCollectionViewCell.swift in Sources */,
 				F4FD2A6A2A4317C300C4A766 /* PhotosViewController.swift in Sources */,
 				F4FD29332A39F8E900C4A766 /* LogInViewController.swift in Sources */,
@@ -204,7 +362,42 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4F66DEF2A728DF200127162 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F66DF72A728DF200127162 /* StorageService.docc in Sources */,
+				F4F66E112A728E0300127162 /* Post.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F66DF82A728DF200127162 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F66E042A728DF200127162 /* StorageServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F4F66DFF2A728DF200127162 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4F66DF22A728DF200127162 /* StorageService */;
+			targetProxy = F4F66DFE2A728DF200127162 /* PBXContainerItemProxy */;
+		};
+		F4F66E012A728DF200127162 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4B31B422A27D29E00AEAF59 /* Navigation */;
+			targetProxy = F4F66E002A728DF200127162 /* PBXContainerItemProxy */;
+		};
+		F4F66E072A728DF200127162 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4F66DF22A728DF200127162 /* StorageService */;
+			targetProxy = F4F66E062A728DF200127162 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F4B31B512A27D29F00AEAF59 /* LaunchScreen.storyboard */ = {
@@ -335,6 +528,7 @@
 		F4B31B582A27D29F00AEAF59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -362,6 +556,7 @@
 		F4B31B592A27D29F00AEAF59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -386,6 +581,106 @@
 			};
 			name = Release;
 		};
+		F4F66E0B2A728DF200127162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com..StorageService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F4F66E0C2A728DF200127162 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com..StorageService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F4F66E0D2A728DF200127162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com..StorageServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navigation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Navigation";
+			};
+			name = Debug;
+		};
+		F4F66E0E2A728DF200127162 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com..StorageServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navigation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Navigation";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -403,6 +698,24 @@
 			buildConfigurations = (
 				F4B31B582A27D29F00AEAF59 /* Debug */,
 				F4B31B592A27D29F00AEAF59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4F66E0F2A728DF200127162 /* Build configuration list for PBXNativeTarget "StorageService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4F66E0B2A728DF200127162 /* Debug */,
+				F4F66E0C2A728DF200127162 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4F66E102A728DF200127162 /* Build configuration list for PBXNativeTarget "StorageServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4F66E0D2A728DF200127162 /* Debug */,
+				F4F66E0E2A728DF200127162 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
