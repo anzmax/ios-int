@@ -1,8 +1,9 @@
 import UIKit
 import StorageService
+import iOSIntPackage
+import SnapKit
 
 enum ProfileSections: Int, CaseIterable {
-    
     case photos
     case posts
 }

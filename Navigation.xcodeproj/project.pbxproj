@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F43655F12A772A84001CC33C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F43655F02A772A84001CC33C /* SnapKit */; };
 		F4B31B472A27D29E00AEAF59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B462A27D29E00AEAF59 /* AppDelegate.swift */; };
 		F4B31B492A27D29E00AEAF59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B482A27D29E00AEAF59 /* SceneDelegate.swift */; };
 		F4B31B4B2A27D29E00AEAF59 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B4A2A27D29E00AEAF59 /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 		F4F66E082A728DF200127162 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; };
 		F4F66E092A728DF200127162 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4F66E112A728E0300127162 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B9A2A288FE400AEAF59 /* Post.swift */; };
+		F4F66E142A729A7800127162 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = F4F66E132A729A7800127162 /* iOSIntPackage */; };
 		F4FD29332A39F8E900C4A766 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD29322A39F8E900C4A766 /* LogInViewController.swift */; };
 		F4FD29592A3B2AC600C4A766 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD29582A3B2AC600C4A766 /* PostTableViewCell.swift */; };
 		F4FD2A662A42FC7E00C4A766 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD2A652A42FC7E00C4A766 /* PhotosTableViewCell.swift */; };
@@ -102,7 +104,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F43655F12A772A84001CC33C /* SnapKit in Frameworks */,
 				F4F66E082A728DF200127162 /* StorageService.framework in Frameworks */,
+				F4F66E142A729A7800127162 /* iOSIntPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +235,10 @@
 				F4F66E072A728DF200127162 /* PBXTargetDependency */,
 			);
 			name = Navigation;
+			packageProductDependencies = (
+				F4F66E132A729A7800127162 /* iOSIntPackage */,
+				F43655F02A772A84001CC33C /* SnapKit */,
+			);
 			productName = Navigation;
 			productReference = F4B31B432A27D29E00AEAF59 /* Navigation.app */;
 			productType = "com.apple.product-type.application";
@@ -303,6 +311,10 @@
 				Base,
 			);
 			mainGroup = F4B31B3A2A27D29E00AEAF59;
+			packageReferences = (
+				F4F66E122A729A7800127162 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				F43655EF2A772A84001CC33C /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = F4B31B442A27D29E00AEAF59 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -721,6 +733,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F43655EF2A772A84001CC33C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		F4F66E122A729A7800127162 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F43655F02A772A84001CC33C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F43655EF2A772A84001CC33C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		F4F66E132A729A7800127162 /* iOSIntPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4F66E122A729A7800127162 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
+			productName = iOSIntPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4B31B3B2A27D29E00AEAF59 /* Project object */;
 }
