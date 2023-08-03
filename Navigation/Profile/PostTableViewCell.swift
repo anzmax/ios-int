@@ -1,7 +1,10 @@
 import UIKit
+import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
+    let imageProcessor = ImageProcessor()
     static let id = "PostTableViewCell"
     
     
@@ -91,7 +94,11 @@ class PostTableViewCell: UITableViewCell {
         viewsLabel.text = "Views: \(post.views)"
         
         if let image = UIImage(named: post.image) {
-            postImageView.image = image
+            
+            ImageProcessor().processImage(sourceImage: image, filter: .fade) { image in
+                
+                postImageView.image = image
+            }
         }
     }
     
