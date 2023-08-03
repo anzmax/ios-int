@@ -3,13 +3,11 @@ import UIKit
 class InfoViewController: UIViewController {
     
     lazy var alertButton: UIButton = {
-        
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
         button.setTitle("Alert", for: .normal)
         button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         button.backgroundColor = .systemRed
         return button
-        
     }()
     
     @objc func showAlert() {
@@ -25,7 +23,6 @@ class InfoViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true)
-        
     }
     
     override func viewDidLoad() {
@@ -37,15 +34,11 @@ class InfoViewController: UIViewController {
     }
     
     func setupViews() {
-  
         view.addSubview(alertButton)
     }
     
     func setupConstraints() {
-        
         alertButton.center = view.center
     }
-    
-    
 }
 

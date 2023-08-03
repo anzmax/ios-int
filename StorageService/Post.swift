@@ -1,7 +1,6 @@
 import UIKit
 
 public struct Post {
-    
     public var author: String
     public var description: String
     public var image: String
@@ -9,9 +8,7 @@ public struct Post {
     public var views: Int
 }
 
-
 public var posts: [Post] = [
-
     Post(
         author: "Royal Mail",
         description: "A special collection of stamps has been issued to mark the 75th anniversary of the arrival of the hundreds of passengers from the Caribbean to the UK on the Empire Windrush. Eight Royal Mail stamps featuring original artworks by Black British artists were commissioned to celebrate the occasion, which will be revealed at the Black Cultural Archives in Brixton on Thursday.",

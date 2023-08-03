@@ -10,7 +10,6 @@ class FeedViewController: UIViewController {
     }
     
     var verticalStackView: UIStackView = {
-        
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -19,7 +18,6 @@ class FeedViewController: UIViewController {
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         return stackView
     }()
     
@@ -28,7 +26,6 @@ class FeedViewController: UIViewController {
         button.setTitle("Open Post", for: .normal)
         button.addTarget(self, action: #selector(showPostScreen), for: .touchUpInside)
         button.backgroundColor = .systemPink
-        
         return button
     }()
     
@@ -37,7 +34,6 @@ class FeedViewController: UIViewController {
         button.setTitle("Open Post", for: .normal)
         button.addTarget(self, action: #selector(showPostScreen), for: .touchUpInside)
         button.backgroundColor = .systemPink
-        
         return button
     }()
     
@@ -49,16 +45,13 @@ class FeedViewController: UIViewController {
     }
     
     func setupViews() {
-        
         view.backgroundColor = .systemOrange
         view.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(postButtonFirst)
         verticalStackView.addArrangedSubview(postButtonSecond)
-        
     }
     
     func setupConstraints() {
-        
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -67,13 +60,10 @@ class FeedViewController: UIViewController {
             verticalStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             verticalStackView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor)
         ])
-        
     }
     
     @objc func showPostScreen() {
         let postVC = PostViewController.init()
-        
         self.navigationController?.pushViewController(postVC, animated: true)
     }
-    
 }

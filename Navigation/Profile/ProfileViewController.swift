@@ -11,10 +11,9 @@ enum ProfileSections: Int, CaseIterable {
 class ProfileViewController: UIViewController {
     
     var profileHeaderView = ProfileHeaderView()
-    
+    var user: User?
     
     private lazy var tableView: UITableView = {
-        
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
@@ -24,41 +23,31 @@ class ProfileViewController: UIViewController {
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.id)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.id)
         tableView.estimatedRowHeight = 40
-        
         return tableView
     }()
     
-    
     private lazy var closeButton: UIButton = {
-        
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .black
         button.alpha = 0.0
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         return button
     }()
     
     private lazy var overlayView: UIView = {
-        
         let view = UIView()
         view.backgroundColor = .white.withAlphaComponent(0.8)
         view.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
     
-    private lazy var avatarImageView: UIImageView = {
-        
-        let headerView = profileHeaderView
-        let image = headerView.profileImageView.image
-        let imageView = UIImageView(image: image)
+    private var avatarImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage())
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageView
     }()
     
@@ -69,11 +58,15 @@ class ProfileViewController: UIViewController {
         setupViews()
         setupConstraints()
         
-        #if DEBUG
+#if DEBUG
         view.backgroundColor = .gray
-        #else
+#else
         view.backgroundColor = .white
-        #endif
+#endif
+        
+        if let user = self.user {
+            updateUser(user: user)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,20 +75,17 @@ class ProfileViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    
     private func setupViews() {
         view.addSubview(tableView)
         view.addSubview(overlayView)
         overlayView.addSubview(closeButton)
         overlayView.addSubview(avatarImageView)
         
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarImageTapped))
         profileHeaderView.profileImageView.isUserInteractionEnabled = true
         profileHeaderView.profileImageView.addGestureRecognizer(tapGesture)
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
-    
     
     var avatarTopConstraint: NSLayoutConstraint!
     var avatarWidthConstraint: NSLayoutConstraint!
@@ -120,7 +110,6 @@ class ProfileViewController: UIViewController {
             closeButton.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -16),
             closeButton.widthAnchor.constraint(equalToConstant: 30),
             closeButton.heightAnchor.constraint(equalToConstant: 30),
-            
         ])
         
         avatarTopConstraint = avatarImageView.topAnchor.constraint(equalTo: overlayView.topAnchor, constant: 16)
@@ -132,15 +121,25 @@ class ProfileViewController: UIViewController {
         avatarLeftConstraint = avatarImageView.leadingAnchor.constraint(equalTo: overlayView.leadingAnchor, constant: 16)
         avatarLeftConstraint.isActive = true
     }
+    
+    //MARK: - Actions
+    
+    func updateUser(user: User) {
+        self.user = user
+        avatarImageView.image = user.avatar
+        profileHeaderView.profileImageView.image = user.avatar
+        profileHeaderView.nameLabel.text = user.fullName
+        profileHeaderView.statusLabel.text = user.status
+    }
 }
+
+//MARK: - Extensions
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return ProfileSections.allCases.count
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -150,16 +149,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             case .posts: return posts.count
             }
         }
-        
         return 0
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let sectionType = ProfileSections.init(rawValue: indexPath.section) {
             
             switch sectionType {
+                
             case .photos:
                 let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.id, for: indexPath) as! PhotosTableViewCell
                 return cell
@@ -174,7 +172,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if let sectionType = ProfileSections(rawValue: section) {
@@ -187,15 +184,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 return nil
             }
         }
-        
         return nil
     }
-    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if let sectionType = ProfileSections(rawValue: section) {
-            
             switch sectionType {
                 
             case .photos:
@@ -207,11 +201,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let sectionType = ProfileSections(rawValue: indexPath.row) {
-            
             switch sectionType {
                 
             case .photos:
@@ -221,7 +213,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 break
             }
         }
-        
     }
 }
 
@@ -245,7 +236,6 @@ extension ProfileViewController {
         }
     }
     
-    
     @objc private func closeButtonTapped() {
         
         UIView.animate(withDuration: 0.5) {
@@ -259,7 +249,6 @@ extension ProfileViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
 }
 
 
