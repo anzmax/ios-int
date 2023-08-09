@@ -7,63 +7,47 @@ class PostTableViewCell: UITableViewCell {
     let imageProcessor = ImageProcessor()
     static let id = "PostTableViewCell"
     
-    
     var authorLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .black
         label.numberOfLines = 2
-        
         return label
     }()
     
-    
     var descriptionLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .systemGray
-        
         return label
     }()
     
-    
     var postImageView: UIImageView = {
-        
         let postImage = UIImageView()
         postImage.contentMode = .scaleToFill
         postImage.backgroundColor = .black
         postImage.translatesAutoresizingMaskIntoConstraints = false
-        
         return postImage
     }()
     
-    
     var likesLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .black
-        
         return label
     }()
-    
     
     var viewsLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .black
-        
         return label
     }()
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -76,9 +60,7 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func setupView() {
-        
         contentView.addSubview(authorLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(postImageView)
@@ -87,24 +69,19 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func configure(with post: Post) {
-        
         authorLabel.text = post.author
         descriptionLabel.text = post.description
         likesLabel.text = "Likes: \(post.likes)"
         viewsLabel.text = "Views: \(post.views)"
         
         if let image = UIImage(named: post.image) {
-            
             ImageProcessor().processImage(sourceImage: image, filter: .fade) { image in
-                
                 postImageView.image = image
             }
         }
     }
     
-    
     private func setupConstraints() {
-        
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -135,6 +112,5 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
-
 }
 

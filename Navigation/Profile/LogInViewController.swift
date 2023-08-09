@@ -2,19 +2,25 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    var currentUserService: UserService
+    
+    init(currentUserService: UserService) {
+        self.currentUserService = currentUserService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var logoImageView: UIView = {
-        
         let logo = UIImageView()
         logo.image = UIImage(named: "logo")
         logo.translatesAutoresizingMaskIntoConstraints = false
-        
         return logo
     }()
     
-    
     var verticalStackView: UIStackView = {
-        
         let stackView = UIStackView()
         stackView.backgroundColor = .systemGray3
         stackView.axis = .vertical
@@ -25,20 +31,16 @@ class LogInViewController: UIViewController {
         stackView.layer.cornerRadius = 10
         stackView.clipsToBounds = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         return stackView
     }()
     
-    
     private lazy var logInTextField: UITextField = {
-        
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Email or phone"
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.keyboardType = .default
@@ -49,24 +51,19 @@ class LogInViewController: UIViewController {
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
         textField.leftViewMode = .always
-        
         textField.translatesAutoresizingMaskIntoConstraints = false
-        
         textField.delegate = self
-        
         return textField
     }()
     
     
     private lazy var passwordTextField: UITextField = {
-        
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Password"
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.keyboardType = .default
@@ -77,18 +74,13 @@ class LogInViewController: UIViewController {
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
         textField.leftViewMode = .always
-        
         textField.isSecureTextEntry = true
         textField.translatesAutoresizingMaskIntoConstraints = false
-        
         textField.delegate = self
-        
         return textField
     }()
     
-    
     private lazy var logInButton: UIButton = {
-        
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         button.setBackgroundImage(UIImage(named: "blue_pixel2"), for: .selected)
@@ -100,35 +92,25 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
-        
         return button
     }()
     
-    
     private lazy var scrollView: UIScrollView = {
-        
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
         return scrollView
     }()
     
-    
     private lazy var contentView: UIView = {
-        
         let contentView = UIView()
         contentView.backgroundColor = .white
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        
         return contentView
     }()
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,20 +119,17 @@ class LogInViewController: UIViewController {
         setupConstraints()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+    
         setupKeyboardObservers()
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         removeKeyboardObservers()
     }
-    
     
     @objc func willShowKeyboard(_ notification: NSNotification) {
         
@@ -164,9 +143,7 @@ class LogInViewController: UIViewController {
         scrollView.contentInset.bottom = 0.0
     }
     
-    
     func setupViews() {
-        
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         
@@ -180,7 +157,6 @@ class LogInViewController: UIViewController {
     }
     
     func setupConstraints() {
-        
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -190,24 +166,20 @@ class LogInViewController: UIViewController {
             logoImageView.widthAnchor.constraint(equalToConstant: 100),
             logoImageView.heightAnchor.constraint(equalToConstant: 100),
             
-            
             verticalStackView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
             verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             verticalStackView.heightAnchor.constraint(equalToConstant: 100),
-            
             
             logInButton.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 16),
             logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             
-            
             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -216,17 +188,30 @@ class LogInViewController: UIViewController {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         ])
-        
     }
     
+    //MARK: - Actions
     
     @objc func logInButtonPressed() {
         
-        let profileVC = ProfileViewController()
-        
-        navigationController?.pushViewController(profileVC, animated: true)
+        let login = logInTextField.text ?? ""
+        let currentUser = currentUserService.getUser(login)
+      
+        if login == currentUser?.login {
+            let profileVC = ProfileViewController()
+            profileVC.user = currentUserService.getUser(login)
+            navigationController?.pushViewController(profileVC, animated: true)
+        } else {
+            let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин", preferredStyle: .alert)
+            
+            self.present(alertController, animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                alertController.dismiss(animated: true, completion: nil)
+            }
+            return
+        }
     }
-    
     
     private func setupKeyboardObservers() {
         
@@ -245,16 +230,13 @@ class LogInViewController: UIViewController {
             object: nil)
     }
     
-    
     private func removeKeyboardObservers() {
-        
         let notificationCenter = NotificationCenter.default
         notificationCenter.removeObserver(self)
     }
-        
-    }
+}
 
-
+//MARK: - Extensions
 extension LogInViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

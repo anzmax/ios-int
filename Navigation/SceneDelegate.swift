@@ -10,8 +10,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let feedVC = FeedViewController()
-        let logInVC = LogInViewController()
-                
+        
+        var service: UserService?
+        
+        #if DEBUG
+        service = TestUserService()
+        #else
+        service = CurrentUserService()
+        #endif
+        
+        guard let service = service else { return }
+        
+        let logInVC = LogInViewController.init(currentUserService: service)
+        
         let tabBarController = UITabBarController.init()
         
         let feedNav = UINavigationController(rootViewController: feedVC)
@@ -28,7 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let selectedImage2 = UIImage(systemName: "person.fill")
         profileNav.tabBarItem = UITabBarItem.init(title: "Profile", image: image2, selectedImage: selectedImage2)
         
-        
         tabBarController.viewControllers = [feedNav, profileNav]
         
         window = UIWindow.init(windowScene: windowScene)
@@ -36,8 +46,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = tabBarController
         
         window?.makeKeyAndVisible()
-
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
