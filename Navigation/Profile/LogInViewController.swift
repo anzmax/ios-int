@@ -3,9 +3,11 @@ import UIKit
 class LogInViewController: UIViewController {
     
     var currentUserService: UserService
+    var loginDelegate: LogInViewControllerDelegate?
     
-    init(currentUserService: UserService) {
+    init(currentUserService: UserService, delegate: LogInViewControllerDelegate) {
         self.currentUserService = currentUserService
+        self.loginDelegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -193,16 +195,15 @@ class LogInViewController: UIViewController {
     //MARK: - Actions
     
     @objc func logInButtonPressed() {
-        
+        guard let loginDelegate = loginDelegate else {return}
         let login = logInTextField.text ?? ""
-        let currentUser = currentUserService.getUser(login)
-      
-        if login == currentUser?.login {
+        let password = passwordTextField.text ?? ""
+        
+        if loginDelegate.check(login: login, password: password) {
             let profileVC = ProfileViewController()
-            profileVC.user = currentUserService.getUser(login)
             navigationController?.pushViewController(profileVC, animated: true)
         } else {
-            let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин", preferredStyle: .alert)
+            let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
             
             self.present(alertController, animated: true)
             
@@ -234,6 +235,7 @@ class LogInViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.removeObserver(self)
     }
+    
 }
 
 //MARK: - Extensions
