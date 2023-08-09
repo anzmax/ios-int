@@ -202,6 +202,15 @@ class LogInViewController: UIViewController {
         if loginDelegate.check(login: login, password: password) {
             let profileVC = ProfileViewController()
             navigationController?.pushViewController(profileVC, animated: true)
+        } else if login.isEmpty || password.isEmpty {
+            let alertController = UIAlertController.init(title: "", message: "Введите логин и пароль", preferredStyle: .alert)
+            
+            self.present(alertController, animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                alertController.dismiss(animated: true, completion: nil)
+            }
+            return
         } else {
             let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
             

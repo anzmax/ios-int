@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let service = service else { return }
         
-        let loginInspector = LoginInspector()
+        let myLoginFactory = MyLoginFactory()
+        let loginInspector = myLoginFactory.makeLoginInspector()
         
         let logInVC = LogInViewController(currentUserService: service, delegate: loginInspector)
         logInVC.loginDelegate = loginInspector

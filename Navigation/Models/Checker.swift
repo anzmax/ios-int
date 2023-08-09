@@ -1,11 +1,5 @@
 import UIKit
 
-protocol LogInViewControllerDelegate {
-    
-    func check(login: String, password: String) -> Bool
-}
-
-
 final class Checker: LogInViewControllerDelegate {
     
     static let shared = Checker()
@@ -21,11 +15,3 @@ final class Checker: LogInViewControllerDelegate {
     }
 }
 
-struct LoginInspector: LogInViewControllerDelegate {
-    
-    func check(login: String, password: String) -> Bool {
-        return Checker.shared.check(login: login, password: password)
-    }
-    
-    
-}
