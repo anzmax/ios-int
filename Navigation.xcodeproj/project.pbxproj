@@ -146,6 +146,7 @@
 		F4738DB92A8395B7003E2311 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F4FD2A672A42FD3F00C4A766 /* Photo.swift */,
 				F4738D182A7BA246003E2311 /* User.swift */,
 				F4738D162A7B8EB8003E2311 /* UserServices.swift */,
 				F4738DB62A8388DA003E2311 /* Checker.swift */,
@@ -258,7 +259,6 @@
 				F4FD2A692A4317C300C4A766 /* PhotosViewController.swift */,
 				F4FD2A652A42FC7E00C4A766 /* PhotosTableViewCell.swift */,
 				F4FD2A6B2A43208300C4A766 /* PhotosCollectionViewCell.swift */,
-				F4FD2A672A42FD3F00C4A766 /* Photo.swift */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
