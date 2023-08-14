@@ -21,7 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let service = service else { return }
         
-        let logInVC = LogInViewController.init(currentUserService: service)
+        let myLoginFactory = MyLoginFactory()
+        let loginInspector = myLoginFactory.makeLoginInspector()
+        
+        let logInVC = LogInViewController(currentUserService: service, delegate: loginInspector)
+        logInVC.loginDelegate = loginInspector
         
         let tabBarController = UITabBarController.init()
         
