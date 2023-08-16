@@ -1,6 +1,10 @@
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
+    
+    let imagePublisherFacade = ImagePublisherFacade()
+    var photos = [UIImage]()
     
     lazy var collectionView: UICollectionView = {
         
@@ -29,20 +33,20 @@ class PhotosViewController: UIViewController {
 
     
     var topView: UIView = {
-        
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .gray.withAlphaComponent(0.2)
-        
         return view
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
         setupConstraints()
+        
+        imagePublisherFacade.subscribe(self)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20)
     }
 
 
@@ -52,6 +56,15 @@ class PhotosViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        imagePublisherFacade.removeSubscription(for: self)
+    }
+    
+    deinit {
+        imagePublisherFacade.removeSubscription(for: self)
+    }
     
     func setupViews() {
         
@@ -102,11 +115,20 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.id, for: indexPath) as! PhotosCollectionViewCell
         
         let photo = photos[indexPath.item]
-        cell.photoImageView.image = photo.image
+        cell.photoImageView.image = photo
         
         return cell
     }
 }
 
-
-
+extension PhotosViewController: ImageLibrarySubscriber {
+    
+    func receive(images: [UIImage]) {
+        for image in images {
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleToFill
+            photos.append(image)
+        }
+        collectionView.reloadData()
+    }
+}
