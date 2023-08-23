@@ -5,9 +5,9 @@ class PhotosViewController: UIViewController {
     
     let imagePublisherFacade = ImagePublisherFacade()
     var photos = [UIImage]()
+    //var photos: [Photo] = []
     
     lazy var collectionView: UICollectionView = {
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 8
@@ -24,14 +24,12 @@ class PhotosViewController: UIViewController {
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.id)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
         
         return collectionView
     }()
 
-    
     var topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,14 +37,14 @@ class PhotosViewController: UIViewController {
         return view
     }()
     
-    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
         
         imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20)
+        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: photoImages)
     }
 
 
@@ -58,7 +56,6 @@ class PhotosViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         imagePublisherFacade.removeSubscription(for: self)
     }
     
@@ -67,20 +64,14 @@ class PhotosViewController: UIViewController {
     }
     
     func setupViews() {
-        
         view.backgroundColor = .white
         self.title = "Photo gallery"
-        
-
         view.addSubview(topView)
         view.addSubview(collectionView)
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-
     }
     
-    
     func setupConstraints() {
-        
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -97,14 +88,13 @@ class PhotosViewController: UIViewController {
         ])
     }
     
-    
     @objc func goBackScreen() {
 
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-
+//MARK: - Extensions
 extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -124,11 +114,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension PhotosViewController: ImageLibrarySubscriber {
     
     func receive(images: [UIImage]) {
-        for image in images {
-            let imageView = UIImageView(image: image)
-            imageView.contentMode = .scaleToFill
-            photos.append(image)
-        }
+        photos = images
         collectionView.reloadData()
     }
 }
