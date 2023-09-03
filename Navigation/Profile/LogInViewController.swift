@@ -15,6 +15,8 @@ class LogInViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var logInButton = CustomButton(title: "Log In", titleColor: .white)
+    
     var logoImageView: UIView = {
         let logo = UIImageView()
         logo.image = UIImage(named: "logo")
@@ -50,10 +52,10 @@ class LogInViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
         
-        #if DEBUG
+#if DEBUG
         textField.text = "admin"
-        #endif
-    
+#endif
+        
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
         textField.leftViewMode = .always
@@ -77,9 +79,9 @@ class LogInViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
         
-        #if DEBUG
+#if DEBUG
         textField.text = "1234567"
-        #endif
+#endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -88,22 +90,6 @@ class LogInViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         return textField
-    }()
-    
-    private lazy var logInButton: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        button.setBackgroundImage(UIImage(named: "blue_pixel2"), for: .selected)
-        button.setBackgroundImage(UIImage(named: "blue_pixel2"), for: .highlighted)
-        button.setBackgroundImage(UIImage(named: "blue_pixel2"), for: .disabled)
-        button.setTitle("Log in", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
-        return button
     }()
     
     private lazy var scrollView: UIScrollView = {
@@ -122,16 +108,18 @@ class LogInViewController: UIViewController {
         return contentView
     }()
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
         setupConstraints()
+        setupActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        
         setupKeyboardObservers()
     }
     
@@ -164,6 +152,37 @@ class LogInViewController: UIViewController {
         verticalStackView.addArrangedSubview(logInTextField)
         verticalStackView.addArrangedSubview(passwordTextField)
         contentView.addSubview(logInButton)
+    }
+    
+    func setupActions() {
+        logInButton.onAction = { [self] in
+            guard let loginDelegate = self.loginDelegate else {return}
+            let login = logInTextField.text ?? ""
+            let password = passwordTextField.text ?? ""
+            
+            if loginDelegate.check(login: login, password: password) {
+                let profileVC = ProfileViewController()
+                navigationController?.pushViewController(profileVC, animated: true)
+            } else if login.isEmpty || password.isEmpty {
+                let alertController = UIAlertController.init(title: "", message: "Введите логин и пароль", preferredStyle: .alert)
+                
+                self.present(alertController, animated: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+                return
+            } else {
+                let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+                
+                self.present(alertController, animated: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    alertController.dismiss(animated: true, completion: nil)
+                }
+                return
+            }
+        }
     }
     
     func setupConstraints() {
@@ -201,36 +220,6 @@ class LogInViewController: UIViewController {
     }
     
     //MARK: - Actions
-    
-    @objc func logInButtonPressed() {
-        guard let loginDelegate = loginDelegate else {return}
-        let login = logInTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
-        
-        if loginDelegate.check(login: login, password: password) {
-            let profileVC = ProfileViewController()
-            navigationController?.pushViewController(profileVC, animated: true)
-        } else if login.isEmpty || password.isEmpty {
-            let alertController = UIAlertController.init(title: "", message: "Введите логин и пароль", preferredStyle: .alert)
-            
-            self.present(alertController, animated: true)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-            return
-        } else {
-            let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
-            
-            self.present(alertController, animated: true)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-            return
-        }
-    }
-    
     private func setupKeyboardObservers() {
         
         let notificationCenter = NotificationCenter.default
@@ -257,10 +246,10 @@ class LogInViewController: UIViewController {
 
 //MARK: - Extensions
 extension LogInViewController: UITextFieldDelegate {
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-
+        
         return true
     }
 }
