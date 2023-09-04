@@ -5,6 +5,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     static let id = "ProfileHeaderView"
     
+    private lazy var statusButton = CustomButton(title: "Show Status", titleColor: .white)
+    
     var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "No Drama Lama"
@@ -34,20 +36,20 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return image
     }()
     
-    private lazy var statusButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Show status", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.shadowOffset = CGSize(width: 10, height: 10)
-        button.layer.shadowRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.7
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        return button
-    }()
+//    private lazy var statusButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("Show status", for: .normal)
+//        button.backgroundColor = .systemBlue
+//        button.setTitleColor(.white, for: .normal)
+//        button.layer.cornerRadius = 10
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.layer.shadowOffset = CGSize(width: 10, height: 10)
+//        button.layer.shadowRadius = 4
+//        button.layer.shadowColor = UIColor.black.cgColor
+//        button.layer.shadowOpacity = 0.7
+//        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+//        return button
+//    }()
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -79,6 +81,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
         setupViews()
         setupConstraints()
+        setupActions()
     }
 
     required init?(coder: NSCoder) {
@@ -91,6 +94,19 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.addSubview(statusLabel)
         self.addSubview(statusButton)
         self.addSubview(textField)
+    }
+    
+    func setupActions() {
+        statusButton.onAction = { [self] in
+            if let text = self.textField.text, text.isEmpty {
+                textField.layer.borderColor = UIColor.red.cgColor
+                print("Enter your text")
+            } else {
+                print(statusLabel.text ?? "")
+                statusLabel.text = statustext
+                textField.layer.borderColor = UIColor.black.cgColor
+            }
+        }
     }
     
     func setupConstraints() {
@@ -129,18 +145,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     //MARK: - Action
-    
-    @objc func buttonPressed() {
-        if let text = textField.text, text.isEmpty {
-            textField.layer.borderColor = UIColor.red.cgColor
-            print("Enter your text")
-        } else {
-            print(statusLabel.text ?? "")
-            statusLabel.text = statustext
-            textField.layer.borderColor = UIColor.black.cgColor
-        }
-    }
-    
     private var statustext: String = ""
     
     @objc func statusTextChanged(_ textField: UITextField) {
