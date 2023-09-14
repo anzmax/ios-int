@@ -15,7 +15,47 @@ class LogInViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var logInButton = CustomButton(title: "Log In", titleColor: .white)
+//    private lazy var logInButton = CustomButton(title: "Log In", titleColor: .white, action: )
+//
+//    CustomButton.init(title: <#T##String#>, action: T##() -> Void)
+//
+    lazy var logInButton = CustomButton(title: "Log in") {
+        
+        guard let loginDelegate = self.loginDelegate else {return}
+        let login = self.logInTextField.text ?? ""
+        let password = self.passwordTextField.text ?? ""
+        
+        if loginDelegate.check(login: login, password: password) {
+            let profileVC = ProfileViewController()
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        } else if login.isEmpty || password.isEmpty {
+            
+            self.showAlert(title: "", message: "Введите логин и пароль")
+            return
+        } else {
+            self.showAlert(title: "Ошибка", message: "Неверный логин или пароль")
+            return
+//            let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+//
+//            self.present(alertController, animated: true)
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                alertController.dismiss(animated: true, completion: nil)
+            }
+            return
+    }
+    
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alertController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     
     var logoImageView: UIView = {
         let logo = UIImageView()
@@ -114,7 +154,7 @@ class LogInViewController: UIViewController {
         
         setupViews()
         setupConstraints()
-        setupActions()
+        //setupActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,36 +194,36 @@ class LogInViewController: UIViewController {
         contentView.addSubview(logInButton)
     }
     
-    func setupActions() {
-        logInButton.onAction = { [self] in
-            guard let loginDelegate = self.loginDelegate else {return}
-            let login = logInTextField.text ?? ""
-            let password = passwordTextField.text ?? ""
-            
-            if loginDelegate.check(login: login, password: password) {
-                let profileVC = ProfileViewController()
-                navigationController?.pushViewController(profileVC, animated: true)
-            } else if login.isEmpty || password.isEmpty {
-                let alertController = UIAlertController.init(title: "", message: "Введите логин и пароль", preferredStyle: .alert)
-                
-                self.present(alertController, animated: true)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    alertController.dismiss(animated: true, completion: nil)
-                }
-                return
-            } else {
-                let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
-                
-                self.present(alertController, animated: true)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    alertController.dismiss(animated: true, completion: nil)
-                }
-                return
-            }
-        }
-    }
+//    func setupActions() {
+//        logInButton.onAction = { [self] in
+//            guard let loginDelegate = self.loginDelegate else {return}
+//            let login = logInTextField.text ?? ""
+//            let password = passwordTextField.text ?? ""
+//
+//            if loginDelegate.check(login: login, password: password) {
+//                let profileVC = ProfileViewController()
+//                navigationController?.pushViewController(profileVC, animated: true)
+//            } else if login.isEmpty || password.isEmpty {
+//                let alertController = UIAlertController.init(title: "", message: "Введите логин и пароль", preferredStyle: .alert)
+//
+//                self.present(alertController, animated: true)
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                    alertController.dismiss(animated: true, completion: nil)
+//                }
+//                return
+//            } else {
+//                let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+//
+//                self.present(alertController, animated: true)
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                    alertController.dismiss(animated: true, completion: nil)
+//                }
+//                return
+//            }
+//        }
+//    }
     
     func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide

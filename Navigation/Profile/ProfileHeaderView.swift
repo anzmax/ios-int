@@ -5,7 +5,16 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     static let id = "ProfileHeaderView"
     
-    private lazy var statusButton = CustomButton(title: "Show Status", titleColor: .white)
+    private lazy var statusButton = CustomButton(title: "Show Status", titleColor: .white) { [self] in
+        if let text = self.textField.text, text.isEmpty {
+            self.textField.layer.borderColor = UIColor.red.cgColor
+            print("Enter your text")
+        } else {
+            print(statusLabel.text ?? "")
+            statusLabel.text = statustext
+            textField.layer.borderColor = UIColor.black.cgColor
+        }
+    }
     
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -81,7 +90,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
         setupViews()
         setupConstraints()
-        setupActions()
+        //setupActions()
     }
 
     required init?(coder: NSCoder) {
@@ -96,18 +105,18 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.addSubview(textField)
     }
     
-    func setupActions() {
-        statusButton.onAction = { [self] in
-            if let text = self.textField.text, text.isEmpty {
-                textField.layer.borderColor = UIColor.red.cgColor
-                print("Enter your text")
-            } else {
-                print(statusLabel.text ?? "")
-                statusLabel.text = statustext
-                textField.layer.borderColor = UIColor.black.cgColor
-            }
-        }
-    }
+//    func setupActions() {
+//        statusButton.onAction = { [self] in
+//            if let text = self.textField.text, text.isEmpty {
+//                textField.layer.borderColor = UIColor.red.cgColor
+//                print("Enter your text")
+//            } else {
+//                print(statusLabel.text ?? "")
+//                statusLabel.text = statustext
+//                textField.layer.borderColor = UIColor.black.cgColor
+//            }
+//        }
+//    }
     
     func setupConstraints() {
         let safeArea = self.safeAreaLayoutGuide

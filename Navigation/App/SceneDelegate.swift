@@ -9,7 +9,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let feedVC = FeedViewController()
+        let feedVC = FeedViewController(feedViewModel: FeedViewModel())
         
         var service: UserService?
         
