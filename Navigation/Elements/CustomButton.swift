@@ -2,13 +2,18 @@ import UIKit
 
 class CustomButton: UIButton {
     
-    var onAction: (()->())?
+    typealias Action = () -> Void
     
-    init(title: String, titleColor: UIColor) {
+    //var buttonAction: Action
+    
+    var buttonAction: (()->())
+    
+    init(title: String, titleColor: UIColor = .white, action: @escaping (()->Void)) {
+        buttonAction = action
         super.init(frame: .zero)
         
         commonInit(title, titleColor)
-        
+        addTarget(self, action: #selector(buttonTapped(sender: )), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -27,10 +32,11 @@ class CustomButton: UIButton {
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        self.addTarget(self, action: #selector(buttonTapped(sender: )), for: .touchUpInside)
+        //self.addTarget(self, action: #selector(buttonTapped(sender: )), for: .touchUpInside)
     }
     
     @objc func buttonTapped(sender: UIButton) {
-        self.onAction?()
+        //self.onAction?()
+        buttonAction()
     }
 }

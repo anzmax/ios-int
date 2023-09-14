@@ -10,8 +10,22 @@ class FeedViewController: UIViewController {
     }
     
     lazy var feedModel = FeedModel()
+    private let feedViewModel: FeedViewModel
     
-    lazy var checkGuessButton = CustomButton(title: "Check Guess", titleColor: .white)
+    init(feedViewModel: FeedViewModel) {
+        self.feedViewModel = feedViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    lazy var checkGuessButton = CustomButton(title: "Check Guess", titleColor: .white) {
+        self.buttonTapped()
+        print("Button tapped")
+    }
     
     lazy var passwordGuessTextField: UITextField = {
         let textField = UITextField()
@@ -82,10 +96,40 @@ class FeedViewController: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         setupConstraints()
-        setupActions()
+        bindViewModel()
+        feedViewModel.initialState()
+    }
+    
+    private func bindViewModel() {
+
+        feedViewModel.stateChanged = { [weak self] state in
+            
+            guard let self else { return }
+            
+            switch state {
+                
+            case .initial:
+                self.setupViews()
+                self.setupConstraints()
+                
+            case .checkingGuess:
+                self.checkGuess(word: self.passwordGuessTextField.text ?? "")
+
+            case .error:
+                print("error")
+                
+            case .alertSuccess:
+                showAlert(message: "Угадал!")
+                
+            case .alertFailure:
+                showAlert(message: "Пум пум пуууум:(")
+                
+            case .alertEmpty:
+                showAlert(message: "Введите слово")
+            }
+        }
     }
     
     func setupViews() {
@@ -97,22 +141,14 @@ class FeedViewController: UIViewController {
         view.addSubview(checkGuessButton)
         view.addSubview(colorIndicatorLabel)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(colorIndicatorLabelTapped))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(checkAgainLabelTapped))
         colorIndicatorLabel.isUserInteractionEnabled = true
         colorIndicatorLabel.addGestureRecognizer(tapGesture)
     }
     
-    func setupActions() {
-        checkGuessButton.onAction = {
-            self.checkGuessButtonPressed()
-        }
-    }
-    
     func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
-        
         NSLayoutConstraint.activate([
-            
             verticalStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             verticalStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             verticalStackView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor),
@@ -121,7 +157,7 @@ class FeedViewController: UIViewController {
             passwordGuessTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             passwordGuessTextField.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 20),
             passwordGuessTextField.heightAnchor.constraint(equalToConstant: 50),
-
+            
             checkGuessButton.topAnchor.constraint(equalTo: passwordGuessTextField.bottomAnchor, constant: 20),
             checkGuessButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             checkGuessButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
@@ -131,28 +167,21 @@ class FeedViewController: UIViewController {
             colorIndicatorLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             colorIndicatorLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             colorIndicatorLabel.heightAnchor.constraint(equalToConstant: 50)
-
         ])
     }
     
     //MARK: - Actions
-    @objc func showPostScreen() {
-        let postVC = PostViewController.init()
-        self.navigationController?.pushViewController(postVC, animated: true)
+    func showAlert(message: String) {
+        let alertController = UIAlertController.init(title: "", message: message, preferredStyle: .alert)
+
+        self.present(alertController, animated: true)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            alertController.dismiss(animated: true, completion: nil)
+        }
     }
     
-    @objc func colorIndicatorLabelTapped() {
-        guard let word = passwordGuessTextField.text, !word.isEmpty else {
-            let alertController = UIAlertController.init(title: "", message: "Слово, Сударь", preferredStyle: .alert)
-            
-            self.present(alertController, animated: true)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-            return
-        }
-        
+    func checkGuess(word: String) {
         let isCorrect = feedModel.check(word: word)
         
         if isCorrect {
@@ -165,37 +194,19 @@ class FeedViewController: UIViewController {
             colorIndicatorLabel.text = "Мммм нет"
         }
     }
-
-    func checkGuessButtonPressed() {
-        guard let word = passwordGuessTextField.text, !word.isEmpty else {
-            let alertController = UIAlertController.init(title: "", message: "Слово, Сударь", preferredStyle: .alert)
-
-            self.present(alertController, animated: true)
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-            return
-        }
-
-        let isCorrect = feedModel.check(word: word)
-
-        if isCorrect {
-            let alertController = UIAlertController.init(title: "", message: "Угадал!", preferredStyle: .alert)
-
-            self.present(alertController, animated: true)
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-        } else {
-            let alertController = UIAlertController.init(title: "", message: "Пум пум пуууум:(", preferredStyle: .alert)
-
-            self.present(alertController, animated: true)
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-        }
+    
+    func buttonTapped() {
+        feedViewModel.sendAction(.checkGuessButtonTapped(word: passwordGuessTextField.text ?? ""))
     }
+
+    @objc func checkAgainLabelTapped() {
+        feedViewModel.sendAction(.checkAgainLabelTapped(word: passwordGuessTextField.text ?? ""))
+        print("Label tapped")
+    }
+    
+    @objc func showPostScreen() {
+        let postVC = PostViewController.init()
+        self.navigationController?.pushViewController(postVC, animated: true)
+    }
+    
 }
