@@ -12,6 +12,16 @@ class ProfileViewController: UIViewController {
     
     var profileHeaderView = ProfileHeaderView()
     var user: User?
+    private let profileCoordinator: ProfileCoordinatorProtocol
+    
+    init( profileCoordinator: ProfileCoordinatorProtocol) {
+        self.profileCoordinator = profileCoordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()

@@ -7,10 +7,12 @@ final class FeedViewModel {
     enum Action {
         case checkAgainLabelTapped(word: String)
         case checkGuessButtonTapped(word: String)
+        case postButtonTapped
     }
     
     enum State {
         case initial
+        case navigateToPost
         case checkingGuess(word: String)
         case alertSuccess
         case alertFailure
@@ -56,6 +58,8 @@ final class FeedViewModel {
             } else {
                 state = .alertFailure
             }
+        case .postButtonTapped:
+            state = .navigateToPost
         }
     }
 }
