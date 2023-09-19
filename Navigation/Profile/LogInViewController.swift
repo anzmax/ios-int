@@ -4,30 +4,32 @@ class LogInViewController: UIViewController {
     
     var currentUserService: UserService
     var loginDelegate: LogInViewControllerDelegate?
+    private let profileCoordinator: ProfileCoordinatorProtocol
     
-    init(currentUserService: UserService, delegate: LogInViewControllerDelegate) {
+    
+    init(currentUserService: UserService, delegate: LogInViewControllerDelegate, profileCoordinator: ProfileCoordinatorProtocol) {
         self.currentUserService = currentUserService
         self.loginDelegate = delegate
+        self.profileCoordinator = profileCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    private lazy var logInButton = CustomButton(title: "Log In", titleColor: .white, action: )
-//
-//    CustomButton.init(title: <#T##String#>, action: T##() -> Void)
-//
-    lazy var logInButton = CustomButton(title: "Log in") {
+
+    lazy var logInButton = CustomButton(title: "Log in") { [self] in
         
         guard let loginDelegate = self.loginDelegate else {return}
         let login = self.logInTextField.text ?? ""
         let password = self.passwordTextField.text ?? ""
         
         if loginDelegate.check(login: login, password: password) {
-            let profileVC = ProfileViewController()
-            self.navigationController?.pushViewController(profileVC, animated: true)
+//            let profileVC = ProfileViewController()
+//            self.navigationController?.pushViewController(profileVC, animated: true)
+            
+            self.profileCoordinator.showProfile(coordinator: profileCoordinator)
+            print("->",profileCoordinator)
         } else if login.isEmpty || password.isEmpty {
             
             self.showAlert(title: "", message: "Введите логин и пароль")

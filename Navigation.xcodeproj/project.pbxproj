@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		F4019AB32AB222180000831D /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019AB22AB222180000831D /* FeedViewModel.swift */; };
+		F4019AC62AB840E70000831D /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019AC52AB840E70000831D /* Factory.swift */; };
+		F4019AC92AB841130000831D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019AC82AB841130000831D /* TabBarController.swift */; };
+		F4019ACC2AB843F60000831D /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019ACB2AB843F60000831D /* MainCoordinator.swift */; };
+		F4019ACF2AB844730000831D /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019ACE2AB844730000831D /* ProfileCoordinator.swift */; };
+		F4019AD12AB8448E0000831D /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019AD02AB8448E0000831D /* FeedCoordinator.swift */; };
 		F43655F12A772A84001CC33C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F43655F02A772A84001CC33C /* SnapKit */; };
 		F4738D172A7B8EB8003E2311 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4738D162A7B8EB8003E2311 /* UserServices.swift */; };
 		F4738D192A7BA246003E2311 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4738D182A7BA246003E2311 /* User.swift */; };
@@ -80,6 +85,11 @@
 
 /* Begin PBXFileReference section */
 		F4019AB22AB222180000831D /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		F4019AC52AB840E70000831D /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		F4019AC82AB841130000831D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		F4019ACB2AB843F60000831D /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		F4019ACE2AB844730000831D /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		F4019AD02AB8448E0000831D /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		F4738D162A7B8EB8003E2311 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		F4738D182A7BA246003E2311 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F4738DB62A8388DA003E2311 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -140,6 +150,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4019AC42AB840D90000831D /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				F4019AC52AB840E70000831D /* Factory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		F4019AC72AB840F80000831D /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				F4019AC82AB841130000831D /* TabBarController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		F4019ACA2AB843E50000831D /* MainCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F4019ACB2AB843F60000831D /* MainCoordinator.swift */,
+			);
+			path = MainCoordinator;
+			sourceTree = "<group>";
+		};
+		F4019ACD2AB8444E0000831D /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F4019ACE2AB844730000831D /* ProfileCoordinator.swift */,
+				F4019AD02AB8448E0000831D /* FeedCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		F4738DB82A838E75003E2311 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +272,10 @@
 			isa = PBXGroup;
 			children = (
 				F4738DB82A838E75003E2311 /* App */,
+				F4019AC42AB840D90000831D /* Factory */,
+				F4019AC72AB840F80000831D /* TabBarController */,
+				F4019ACA2AB843E50000831D /* MainCoordinator */,
+				F4019ACD2AB8444E0000831D /* Coordinator */,
 				F4BAD4182A32FD8B006D3C90 /* Profile */,
 				F4738DB92A8395B7003E2311 /* Models */,
 				F4FD2A6D2A432C2900C4A766 /* Photo */,
@@ -431,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4019AD12AB8448E0000831D /* FeedCoordinator.swift in Sources */,
 				F4FD2A662A42FC7E00C4A766 /* PhotosTableViewCell.swift in Sources */,
 				F49E6B702AA4E8FF00981E47 /* FeedModel.swift in Sources */,
 				F4738DBF2A839854003E2311 /* Login.swift in Sources */,
@@ -439,18 +487,22 @@
 				F4B31B472A27D29E00AEAF59 /* AppDelegate.swift in Sources */,
 				F4738D192A7BA246003E2311 /* User.swift in Sources */,
 				F4C12C842A28EE950008B003 /* PostViewController.swift in Sources */,
+				F4019ACC2AB843F60000831D /* MainCoordinator.swift in Sources */,
 				F4C12C802A28EE750008B003 /* FeedViewController.swift in Sources */,
 				F4B31B492A27D29E00AEAF59 /* SceneDelegate.swift in Sources */,
 				F4019AB32AB222180000831D /* FeedViewModel.swift in Sources */,
 				F4738DB72A8388DA003E2311 /* Checker.swift in Sources */,
 				F4FD2A682A42FD3F00C4A766 /* Photo.swift in Sources */,
+				F4019AC92AB841130000831D /* TabBarController.swift in Sources */,
 				F4C12C822A28EE850008B003 /* InfoViewController.swift in Sources */,
+				F4019ACF2AB844730000831D /* ProfileCoordinator.swift in Sources */,
 				F4C12C862A28EEA90008B003 /* ProfileViewController.swift in Sources */,
 				F4FD2A6C2A43208300C4A766 /* PhotosCollectionViewCell.swift in Sources */,
 				F4738D172A7B8EB8003E2311 /* UserServices.swift in Sources */,
 				F4FD2A6A2A4317C300C4A766 /* PhotosViewController.swift in Sources */,
 				F4FD29332A39F8E900C4A766 /* LogInViewController.swift in Sources */,
 				F4BAD41C2A32FF3F006D3C90 /* ProfileHeaderView.swift in Sources */,
+				F4019AC62AB840E70000831D /* Factory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

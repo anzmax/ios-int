@@ -2,6 +2,17 @@ import UIKit
 
 class PostViewController: UIViewController {
     
+    private let coordinator: FeedCoordinatorProtocol
+    
+    init(coordinator: FeedCoordinatorProtocol) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     lazy var infoBarButtonItem: UIBarButtonItem = {
         var button = UIBarButtonItem.init(title: "Info", style: .plain, target: self, action: #selector(showInfoScreen))
         return button
@@ -17,8 +28,7 @@ class PostViewController: UIViewController {
     }
     
     @objc func showInfoScreen() {
-        let infoVC = InfoViewController.init()
-        self.navigationController?.pushViewController(infoVC, animated: true)
+        coordinator.showInfo()
     }
     
     func setupViews() {

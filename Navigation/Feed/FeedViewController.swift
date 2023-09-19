@@ -9,11 +9,14 @@ class FeedViewController: UIViewController {
         }
     }
     
+    private let feedCoordinator: FeedCoordinatorProtocol
+    
     lazy var feedModel = FeedModel()
     private let feedViewModel: FeedViewModel
     
-    init(feedViewModel: FeedViewModel) {
+    init(feedViewModel: FeedViewModel, feedCoordinator: FeedCoordinatorProtocol) {
         self.feedViewModel = feedViewModel
+        self.feedCoordinator = feedCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -128,6 +131,8 @@ class FeedViewController: UIViewController {
                 
             case .alertEmpty:
                 showAlert(message: "Введите слово")
+            case .navigateToPost:
+                showPostScreen()
             }
         }
     }
@@ -205,8 +210,7 @@ class FeedViewController: UIViewController {
     }
     
     @objc func showPostScreen() {
-        let postVC = PostViewController.init()
-        self.navigationController?.pushViewController(postVC, animated: true)
+        feedCoordinator.showPost(coordinator: feedCoordinator)
     }
     
 }
