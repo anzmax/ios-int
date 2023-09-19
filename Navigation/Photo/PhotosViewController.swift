@@ -1,12 +1,12 @@
 import UIKit
 import iOSIntPackage
+import Dispatch
 
 class PhotosViewController: UIViewController {
-    
-    let imagePublisherFacade = ImagePublisherFacade()
+
+    let imageProcessor = ImageProcessor()
     var photos = [UIImage]()
-    //var photos: [Photo] = []
-    
+
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -43,24 +43,55 @@ class PhotosViewController: UIViewController {
         setupViews()
         setupConstraints()
         
-        imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: photoImages)
-    }
+        let startTime = DispatchTime.now()
+    
+        imageProcessor.processImagesOnThread(sourceImages: photoImages, filter: .fade, qos: .userInteractive) { processedImages in
+            
+            guard !processedImages.isEmpty else {
+                print("No processed images received.")
+                return
+            }
 
+            var updatedPhotos = [UIImage]()
+            
+            for (index, image) in processedImages.enumerated() {
+                if let image {
+                    let updatedImage = UIImage(cgImage: image)
+                    updatedPhotos.append(updatedImage)
+                } else {
+                    updatedPhotos.append(self.photos[index])
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.photos = updatedPhotos
+                self.collectionView.reloadData()
+                
+                let endTime = DispatchTime.now()
+                let nanoTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
+                let timeInterval = Double(nanoTime) / 1_000_000_000
+                
+                print("Затраченное время: \(timeInterval) секунд")
+            }
+        }
+    }
+    
+    /*
+     
+     Массив исходных параметров один: - photoImages
+     Отчет по времени в зависимости от выбранного qos в секундах:
+     
+     fade - userInteractive: 1.623071583
+     fade - userInitiated: 1.8059355
+     fade - default: 1.903393166
+     fade - utility: 2.453799167
+     fade - background: 6.409634625
+
+     */
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.navigationBar.isHidden = false
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        imagePublisherFacade.removeSubscription(for: self)
-    }
-    
-    deinit {
-        imagePublisherFacade.removeSubscription(for: self)
     }
     
     func setupViews() {
@@ -89,7 +120,6 @@ class PhotosViewController: UIViewController {
     }
     
     @objc func goBackScreen() {
-
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -108,13 +138,5 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.photoImageView.image = photo
         
         return cell
-    }
-}
-
-extension PhotosViewController: ImageLibrarySubscriber {
-    
-    func receive(images: [UIImage]) {
-        photos = images
-        collectionView.reloadData()
     }
 }
