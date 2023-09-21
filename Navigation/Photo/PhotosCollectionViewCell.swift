@@ -17,7 +17,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupViews()
         setupConstraints()
     }
@@ -26,17 +25,12 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func setupViews() {
-        
         contentView.addSubview(photoImageView)
     }
     
-    
     func setupConstraints() {
-        
         NSLayoutConstraint.activate([
-            
             photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
