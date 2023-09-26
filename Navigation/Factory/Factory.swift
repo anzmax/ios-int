@@ -34,7 +34,7 @@ final class Factory {
             
             let coordinator = ProfileCoordinator()
             coordinator.navigationController = navigationController
-            let logInVC = LogInViewController(currentUserService: service, delegate: loginInspector, profileCoordinator: coordinator)
+            let logInVC = LoginViewController(currentUserService: service, delegate: loginInspector, profileCoordinator: coordinator)
             logInVC.loginDelegate = loginInspector
             let image2 = UIImage.init(systemName: "person")
             let selectedImage2 = UIImage(systemName: "person.fill")

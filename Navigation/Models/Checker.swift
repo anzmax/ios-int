@@ -1,6 +1,6 @@
 import UIKit
 
-final class Checker: LogInViewControllerDelegate {
+final class Checker: LoginViewControllerDelegate {
     
     private let validLogin = "admin"
     private let validPassword = "1234567"
