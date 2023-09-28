@@ -1,13 +1,13 @@
 import UIKit
 
-class LogInViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     var currentUserService: UserService
-    var loginDelegate: LogInViewControllerDelegate?
+    var loginDelegate: LoginViewControllerDelegate?
     private let profileCoordinator: ProfileCoordinatorProtocol
+    let passwordForce = BruteForce()
     
-    
-    init(currentUserService: UserService, delegate: LogInViewControllerDelegate, profileCoordinator: ProfileCoordinatorProtocol) {
+    init(currentUserService: UserService, delegate: LoginViewControllerDelegate, profileCoordinator: ProfileCoordinatorProtocol) {
         self.currentUserService = currentUserService
         self.loginDelegate = delegate
         self.profileCoordinator = profileCoordinator
@@ -17,53 +17,64 @@ class LogInViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    lazy var logInButton = CustomButton(title: "Log in") { [self] in
+    
+    //MARK: - UI
+    lazy var loginButton = CustomButton(title: "Log in") { [self] in
         
         guard let loginDelegate = self.loginDelegate else {return}
-        let login = self.logInTextField.text ?? ""
+        let login = self.loginTextField.text ?? ""
         let password = self.passwordTextField.text ?? ""
         
         if loginDelegate.check(login: login, password: password) {
-//            let profileVC = ProfileViewController()
-//            self.navigationController?.pushViewController(profileVC, animated: true)
             
             self.profileCoordinator.showProfile(coordinator: profileCoordinator)
             print("->",profileCoordinator)
         } else if login.isEmpty || password.isEmpty {
-            
             self.showAlert(title: "", message: "Введите логин и пароль")
             return
         } else {
             self.showAlert(title: "Ошибка", message: "Неверный логин или пароль")
             return
-//            let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
-//
-//            self.present(alertController, animated: true)
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                alertController.dismiss(animated: true, completion: nil)
-            }
-            return
+        }
+        return
     }
     
-    
-    func showAlert(title: String, message: String) {
-        let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+    lazy var passwordGenerateButton = CustomButton(title: "Generate Password") {
         
-        self.present(alertController, animated: true)
+        self.activityIndicator.startAnimating()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            alertController.dismiss(animated: true, completion: nil)
+        let randomPassword = self.generateRandomPassword(length: 3)
+        print("Случайный пароль: \(randomPassword)")
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            let crackedPassword = self.passwordForce.bruteForce(passwordToUnlock: randomPassword)
+        
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                if let password = crackedPassword {
+                    self.passwordTextField.text = password
+                    self.passwordTextField.isSecureTextEntry = false
+                } else {
+                    print("Пароль не найден.")
+                }
+            }
         }
     }
-    
     
     var logoImageView: UIView = {
         let logo = UIImageView()
         logo.image = UIImage(named: "logo")
         logo.translatesAutoresizingMaskIntoConstraints = false
         return logo
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.tintColor = .black
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
     }()
     
     var verticalStackView: UIStackView = {
@@ -80,7 +91,7 @@ class LogInViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var logInTextField: UITextField = {
+    private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Email or phone"
@@ -106,11 +117,11 @@ class LogInViewController: UIViewController {
         return textField
     }()
     
-    
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
         textField.placeholder = "Password"
+        textField.text = ""
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -121,9 +132,9 @@ class LogInViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
         
-#if DEBUG
-        textField.text = "1234567"
-#endif
+        //#if DEBUG
+        //        textField.text = "1234567"
+        //#endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -150,37 +161,22 @@ class LogInViewController: UIViewController {
         return contentView
     }()
     
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         setupConstraints()
-        //setupActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         setupKeyboardObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
         removeKeyboardObservers()
-    }
-    
-    @objc func willShowKeyboard(_ notification: NSNotification) {
-        
-        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
-        
-        scrollView.contentInset.bottom += keyboardHeight ?? 0.0
-    }
-    
-    @objc func willHideKeyboard(_ notification: NSNotification) {
-        
-        scrollView.contentInset.bottom = 0.0
     }
     
     func setupViews() {
@@ -191,47 +187,16 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(contentView)
         contentView.addSubview(logoImageView)
         contentView.addSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(logInTextField)
+        verticalStackView.addArrangedSubview(loginTextField)
         verticalStackView.addArrangedSubview(passwordTextField)
-        contentView.addSubview(logInButton)
+        contentView.addSubview(loginButton)
+        contentView.addSubview(passwordGenerateButton)
+        contentView.addSubview(activityIndicator)
     }
-    
-//    func setupActions() {
-//        logInButton.onAction = { [self] in
-//            guard let loginDelegate = self.loginDelegate else {return}
-//            let login = logInTextField.text ?? ""
-//            let password = passwordTextField.text ?? ""
-//
-//            if loginDelegate.check(login: login, password: password) {
-//                let profileVC = ProfileViewController()
-//                navigationController?.pushViewController(profileVC, animated: true)
-//            } else if login.isEmpty || password.isEmpty {
-//                let alertController = UIAlertController.init(title: "", message: "Введите логин и пароль", preferredStyle: .alert)
-//
-//                self.present(alertController, animated: true)
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                    alertController.dismiss(animated: true, completion: nil)
-//                }
-//                return
-//            } else {
-//                let alertController = UIAlertController.init(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
-//
-//                self.present(alertController, animated: true)
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                    alertController.dismiss(animated: true, completion: nil)
-//                }
-//                return
-//            }
-//        }
-//    }
     
     func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
-        
         NSLayoutConstraint.activate([
-            
             logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
             logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 100),
@@ -242,10 +207,15 @@ class LogInViewController: UIViewController {
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             verticalStackView.heightAnchor.constraint(equalToConstant: 100),
             
-            logInButton.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 16),
-            logInButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            logInButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            logInButton.heightAnchor.constraint(equalToConstant: 50),
+            loginButton.topAnchor.constraint(equalTo: verticalStackView.bottomAnchor, constant: 16),
+            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            passwordGenerateButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            passwordGenerateButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            passwordGenerateButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            passwordGenerateButton.heightAnchor.constraint(equalToConstant: 50),
             
             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
@@ -257,11 +227,47 @@ class LogInViewController: UIViewController {
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     //MARK: - Actions
+    func generateRandomPassword(length: Int) -> String {
+        let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var password = ""
+        
+        for _ in 0..<length {
+            let randomIndex = Int(arc4random_uniform(UInt32(charset.count)))
+            let randomChar = charset[charset.index(charset.startIndex, offsetBy: randomIndex)]
+            password.append(randomChar)
+        }
+        
+        return password
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        
+        self.present(alertController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alertController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc func willShowKeyboard(_ notification: NSNotification) {
+        
+        let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
+        scrollView.contentInset.bottom += keyboardHeight ?? 0.0
+    }
+    
+    @objc func willHideKeyboard(_ notification: NSNotification) {
+        scrollView.contentInset.bottom = 0.0
+    }
+    
     private func setupKeyboardObservers() {
         
         let notificationCenter = NotificationCenter.default
@@ -271,7 +277,6 @@ class LogInViewController: UIViewController {
             selector: #selector(willShowKeyboard(_:)),
             name: UIResponder.keyboardWillShowNotification,
             object: nil)
-        
         notificationCenter.addObserver(
             self,
             selector: #selector(willHideKeyboard(_:)),
@@ -283,15 +288,13 @@ class LogInViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.removeObserver(self)
     }
-    
 }
 
 //MARK: - Extensions
-extension LogInViewController: UITextFieldDelegate {
+extension LoginViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
         return true
     }
 }
