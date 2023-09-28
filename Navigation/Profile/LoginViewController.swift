@@ -132,9 +132,9 @@ class LoginViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
         
-        //#if DEBUG
-        //        textField.text = "1234567"
-        //#endif
+        #if DEBUG
+                textField.text = "1234567"
+        #endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView

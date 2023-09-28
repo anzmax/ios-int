@@ -75,19 +75,6 @@ class PhotosViewController: UIViewController {
             }
         }
     }
-    
-    /*
-     
-     Массив исходных параметров один: - photoImages
-     Отчет по времени в зависимости от выбранного qos в секундах:
-     
-     fade - userInteractive: 1.623071583
-     fade - userInitiated: 1.8059355
-     fade - default: 1.903393166
-     fade - utility: 2.453799167
-     fade - background: 6.409634625
-
-     */
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -138,5 +125,17 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.photoImageView.image = photo
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedImages = photos.compactMap { $0.cgImage }
+        let photoDetailVC = PhotoDetailViewController()
+        photoDetailVC.images = selectedImages
+        
+        photoDetailVC.slideshowDidFinish = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        navigationController?.pushViewController(photoDetailVC, animated: true)
     }
 }
