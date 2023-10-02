@@ -1,18 +1,34 @@
 import UIKit
 import SnapKit
 
+enum StatusError: Error {
+    case statusIsEmpty
+}
+
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
     static let id = "ProfileHeaderView"
     
     private lazy var statusButton = CustomButton(title: "Show Status", titleColor: .white) { [self] in
-        if let text = self.textField.text, text.isEmpty {
-            self.textField.layer.borderColor = UIColor.red.cgColor
-            print("Enter your text")
-        } else {
-            print(statusLabel.text ?? "")
-            statusLabel.text = statustext
+        
+        let result = checkStatus(text: self.textField.text)
+        
+        switch result {
+            
+        case .success(let text):
             textField.layer.borderColor = UIColor.black.cgColor
+            statusLabel.text = statustext
+        case .failure(let error):
+            textField.layer.borderColor = UIColor.red.cgColor
+        }
+    }
+    
+    func checkStatus(text: String?) -> Result<String, Error> {
+        
+        if let text = self.textField.text, text.isEmpty {
+            return Result.failure(StatusError.statusIsEmpty)
+        } else {
+            return Result.success(text ?? "")
         }
     }
     
@@ -90,7 +106,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         
         setupViews()
         setupConstraints()
-        //setupActions()
     }
 
     required init?(coder: NSCoder) {
@@ -104,19 +119,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         self.addSubview(statusButton)
         self.addSubview(textField)
     }
-    
-//    func setupActions() {
-//        statusButton.onAction = { [self] in
-//            if let text = self.textField.text, text.isEmpty {
-//                textField.layer.borderColor = UIColor.red.cgColor
-//                print("Enter your text")
-//            } else {
-//                print(statusLabel.text ?? "")
-//                statusLabel.text = statustext
-//                textField.layer.borderColor = UIColor.black.cgColor
-//            }
-//        }
-//    }
     
     func setupConstraints() {
         let safeArea = self.safeAreaLayoutGuide
