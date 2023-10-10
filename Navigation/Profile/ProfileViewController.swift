@@ -183,7 +183,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         if let sectionType = ProfileSections(rawValue: section) {
             
             switch sectionType {
@@ -198,7 +197,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         if let sectionType = ProfileSections(rawValue: section) {
             switch sectionType {
                 
@@ -212,7 +210,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if let sectionType = ProfileSections(rawValue: indexPath.row) {
             switch sectionType {
                 
@@ -229,7 +226,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 extension ProfileViewController {
     
     @objc private func avatarImageTapped() {
-        
         UIView.animate(withDuration: 0.5) {
             self.avatarTopConstraint.constant = 165
             self.avatarWidthConstraint.constant = self.view.bounds.width
@@ -247,7 +243,6 @@ extension ProfileViewController {
     }
     
     @objc private func closeButtonTapped() {
-        
         UIView.animate(withDuration: 0.5) {
             self.avatarTopConstraint.constant = 16
             self.avatarWidthConstraint.constant = 100

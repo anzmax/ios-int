@@ -9,7 +9,7 @@ final class Checker: LoginViewControllerDelegate {
     private init() {}
     
     internal func check(login: String, password: String) -> Bool {
-        login == validLogin && password == validPassword 
+        login == validLogin && password == validPassword
     }
 }
 

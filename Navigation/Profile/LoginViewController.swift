@@ -1,5 +1,12 @@
 import UIKit
 
+enum AuthError: Error {
+    case loginInvalid
+    case passwordInvalid
+    case loginEmpty
+    case passwordEmpty
+}
+
 class LoginViewController: UIViewController {
     
     var currentUserService: UserService
@@ -25,16 +32,32 @@ class LoginViewController: UIViewController {
         let login = self.loginTextField.text ?? ""
         let password = self.passwordTextField.text ?? ""
         
-        if loginDelegate.check(login: login, password: password) {
+        do {
             
-            self.profileCoordinator.showProfile(coordinator: profileCoordinator)
-            print("->",profileCoordinator)
-        } else if login.isEmpty || password.isEmpty {
-            self.showAlert(title: "", message: "Введите логин и пароль")
-            return
-        } else {
-            self.showAlert(title: "Ошибка", message: "Неверный логин или пароль")
-            return
+            if try loginDelegate.check(login: login, password: password) {
+                self.profileCoordinator.showProfile(coordinator: profileCoordinator)
+                print("->",profileCoordinator)
+            }
+            
+        } catch (let error) {
+            
+            switch error {
+            case let error as AuthError:
+                print(error, type(of: error))
+                
+                switch error {
+                case .loginEmpty:
+                    self.showAlert(title: "Ошибка", message: "Логин пустой")
+                case .loginInvalid:
+                    self.showAlert(title: "Ошибка", message: "Введите корректный логин")
+                case .passwordInvalid:
+                    self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
+                case .passwordEmpty:
+                    self.showAlert(title: "Ошибка", message: "Пароль пустой")
+                }
+            default: break
+                
+            }
         }
         return
     }
