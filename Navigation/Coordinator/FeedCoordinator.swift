@@ -16,7 +16,10 @@ final class FeedCoordinator: FeedCoordinatorProtocol {
     }
     
     func showInfo() {
-        let infoVC = InfoViewController()
+        let personService = PersonService()
+        let planetService = PlanetService()
+        let residentService = ResidentService()
+        let infoVC = InfoViewController(personService: personService, planetService: planetService, residentService: residentService)
         nagigationController?.pushViewController(infoVC, animated: true)
     }
 }

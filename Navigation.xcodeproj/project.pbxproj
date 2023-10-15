@@ -39,6 +39,9 @@
 		F4F66E082A728DF200127162 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; };
 		F4F66E092A728DF200127162 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4F66DF32A728DF200127162 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4F66E112A728E0300127162 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B9A2A288FE400AEAF59 /* Post.swift */; };
+		F4F795672ADC092600A9CFA1 /* PersonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F795662ADC092600A9CFA1 /* PersonService.swift */; };
+		F4F795692ADC093A00A9CFA1 /* PlanetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F795682ADC093A00A9CFA1 /* PlanetService.swift */; };
+		F4F7956B2ADC23C400A9CFA1 /* ResidentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F7956A2ADC23C400A9CFA1 /* ResidentService.swift */; };
 		F4FD29332A39F8E900C4A766 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD29322A39F8E900C4A766 /* LoginViewController.swift */; };
 		F4FD29592A3B2AC600C4A766 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD29582A3B2AC600C4A766 /* PostTableViewCell.swift */; };
 		F4FD2A662A42FC7E00C4A766 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FD2A652A42FC7E00C4A766 /* PhotosTableViewCell.swift */; };
@@ -118,6 +121,9 @@
 		F4F66DF62A728DF200127162 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		F4F66DFC2A728DF200127162 /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F66E032A728DF200127162 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
+		F4F795662ADC092600A9CFA1 /* PersonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonService.swift; sourceTree = "<group>"; };
+		F4F795682ADC093A00A9CFA1 /* PlanetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetService.swift; sourceTree = "<group>"; };
+		F4F7956A2ADC23C400A9CFA1 /* ResidentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentService.swift; sourceTree = "<group>"; };
 		F4FD29322A39F8E900C4A766 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F4FD29582A3B2AC600C4A766 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		F4FD2A652A42FC7E00C4A766 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
@@ -319,6 +325,9 @@
 			isa = PBXGroup;
 			children = (
 				F4F209562AD5B77E00D86400 /* NetworkService.swift */,
+				F4F795662ADC092600A9CFA1 /* PersonService.swift */,
+				F4F795682ADC093A00A9CFA1 /* PlanetService.swift */,
+				F4F7956A2ADC23C400A9CFA1 /* ResidentService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -434,7 +443,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					F4B31B422A27D29E00AEAF59 = {
 						CreatedOnToolsVersion = 14.3;
@@ -512,6 +521,8 @@
 				F4F209572AD5B77E00D86400 /* NetworkService.swift in Sources */,
 				F4B31B472A27D29E00AEAF59 /* AppDelegate.swift in Sources */,
 				F4738D192A7BA246003E2311 /* User.swift in Sources */,
+				F4F795692ADC093A00A9CFA1 /* PlanetService.swift in Sources */,
+				F4F795672ADC092600A9CFA1 /* PersonService.swift in Sources */,
 				F4C12C842A28EE950008B003 /* PostViewController.swift in Sources */,
 				F4019ACC2AB843F60000831D /* MainCoordinator.swift in Sources */,
 				F45225042ABF358B00A5ACBC /* BruteForce.swift in Sources */,
@@ -519,6 +530,7 @@
 				F4B31B492A27D29E00AEAF59 /* SceneDelegate.swift in Sources */,
 				F4019AB32AB222180000831D /* FeedViewModel.swift in Sources */,
 				F4738DB72A8388DA003E2311 /* Checker.swift in Sources */,
+				F4F7956B2ADC23C400A9CFA1 /* ResidentService.swift in Sources */,
 				F4FD2A682A42FD3F00C4A766 /* Photo.swift in Sources */,
 				F4019AC92AB841130000831D /* TabBarController.swift in Sources */,
 				F4C12C822A28EE850008B003 /* InfoViewController.swift in Sources */,
@@ -619,6 +631,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -679,6 +692,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -756,6 +770,7 @@
 		F4F66E0B2A728DF200127162 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -789,6 +804,7 @@
 		F4F66E0C2A728DF200127162 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
