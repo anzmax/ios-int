@@ -27,7 +27,7 @@ struct Planet: Codable {
 
 class PlanetService {
     
-    func makePlanetInfoRequest(completion: @escaping (Swift.Result<Planet, NetworkError>) -> Void) {
+    func makePlanetInfoRequest(completion: @escaping (Result<Planet, NetworkError>) -> Void) {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "swapi.dev"
@@ -47,6 +47,7 @@ class PlanetService {
             
             do {
                 let planet = try JSONDecoder().decode(Planet.self, from: data)
+                print(planet, planet.residents)
                 DispatchQueue.main.async {
                     completion(.success(planet))
                 }

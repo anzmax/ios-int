@@ -2,7 +2,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    //var residents: [Resident] = []
+    var residents: [Resident] = []
     
     let personService: PersonService
     let planetService: PlanetService
@@ -63,7 +63,7 @@ class InfoViewController: UIViewController {
         
         personInfoRequest()
         planetInfoRequest()
-        residentInfoRequest()
+        //residentInfoRequest()
     }
     
     func setupViews() {
@@ -111,8 +111,6 @@ class InfoViewController: UIViewController {
     }
     
     //MARK: - Requests
-    
-    
     func personInfoRequest() {
         personService.makePersonInfoRequest { [weak self] title in
             DispatchQueue.main.async {
@@ -125,6 +123,12 @@ class InfoViewController: UIViewController {
         planetService.makePlanetInfoRequest { result in
             switch result {
             case .success(let planet):
+                
+                for residentUrl in planet.residents {
+                    
+                    self.residentInfoRequest(url: residentUrl)
+                }
+                
                 DispatchQueue.main.async {
                     self.planetInfoLabel.text = "Orbital Period: \(planet.orbitalPeriod)"
                 }
@@ -134,24 +138,32 @@ class InfoViewController: UIViewController {
         }
     }
     
-    
-    func residentInfoRequest() {
-
+    func residentInfoRequest(url: URL) {
+        residentService.makeResidentRequest(url: url) { result in
+            switch result {
+            case .success(let resident):
+                DispatchQueue.main.async {
+                    self.residents.append(resident)
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
 extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return residents.count
-        7
+        return residents.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ResidentCell.id, for: indexPath) as! ResidentCell
         
-        //let resident = residents[indexPath.row]
-        //cell.residentLabel.text = resident.name
+        let resident = residents[indexPath.row]
+        cell.residentLabel.text = resident.name
         
         return cell
     }
