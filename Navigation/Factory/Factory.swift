@@ -29,7 +29,8 @@ final class Factory {
             #endif
             
             guard let service = service else { return }
-            let myLoginFactory = MyLoginFactory()
+            let checkerService = CheckerService()
+            let myLoginFactory = MyLoginFactory(checkerService: checkerService)
             let loginInspector = myLoginFactory.makeLoginInspector()
             
             let coordinator = ProfileCoordinator()
