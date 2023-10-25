@@ -3,9 +3,7 @@ import UIKit
 class CustomButton: UIButton {
     
     typealias Action = () -> Void
-    
-    //var buttonAction: Action
-    
+
     var buttonAction: (()->())
     
     init(title: String, titleColor: UIColor = .white, action: @escaping (()->Void)) {

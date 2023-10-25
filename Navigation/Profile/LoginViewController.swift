@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 enum AuthError: Error {
     case loginInvalid
@@ -9,14 +10,18 @@ enum AuthError: Error {
 
 class LoginViewController: UIViewController {
     
+    let checkerService: CheckerServiceProtocol = CheckerService()
+    
     var currentUserService: UserService
     var loginDelegate: LoginViewControllerDelegate?
+    private let loginInspector: LoginInspector
     private let profileCoordinator: ProfileCoordinatorProtocol
     let passwordForce = BruteForce()
     
     init(currentUserService: UserService, delegate: LoginViewControllerDelegate, profileCoordinator: ProfileCoordinatorProtocol) {
         self.currentUserService = currentUserService
         self.loginDelegate = delegate
+        self.loginInspector = LoginInspector(checkerService: checkerService)
         self.profileCoordinator = profileCoordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,40 +32,54 @@ class LoginViewController: UIViewController {
     
     //MARK: - UI
     lazy var loginButton = CustomButton(title: "Log in") { [self] in
-        
-        guard let loginDelegate = self.loginDelegate else {return}
-        let login = self.loginTextField.text ?? ""
-        let password = self.passwordTextField.text ?? ""
-        
-        do {
+            guard let loginDelegate = self.loginDelegate else { return }
+            let login = self.loginTextField.text ?? ""
+            let password = self.passwordTextField.text ?? ""
             
-            if try loginDelegate.check(login: login, password: password) {
-                self.profileCoordinator.showProfile(coordinator: profileCoordinator)
-                print("->",profileCoordinator)
-            }
-            
-        } catch (let error) {
-            
-            switch error {
-            case let error as AuthError:
-                print(error, type(of: error))
-                
-                switch error {
-                case .loginEmpty:
-                    self.showAlert(title: "Ошибка", message: "Логин пустой")
-                case .loginInvalid:
-                    self.showAlert(title: "Ошибка", message: "Введите корректный логин")
-                case .passwordInvalid:
-                    self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
-                case .passwordEmpty:
-                    self.showAlert(title: "Ошибка", message: "Пароль пустой")
+            checkerService.checkCredentials(email: login, password: password) { error in
+                if let error = error {
+                    self.showAuthError(error)
+                } else {
+                    self.profileCoordinator.showProfile(coordinator: self.profileCoordinator)
                 }
-            default: break
-                
             }
         }
-        return
-    }
+
+//    lazy var loginButton = CustomButton(title: "Log in") { [self] in
+//        
+//        guard let loginDelegate = self.loginDelegate else {return}
+//        let login = self.loginTextField.text ?? ""
+//        let password = self.passwordTextField.text ?? ""
+//        
+//        do {
+//            
+//            if try loginDelegate.check(login: login, password: password) {
+//                self.profileCoordinator.showProfile(coordinator: profileCoordinator)
+//                print("->",profileCoordinator)
+//            }
+//            
+//        } catch (let error) {
+//            
+//            switch error {
+//            case let error as AuthError:
+//                print(error, type(of: error))
+//                
+//                switch error {
+//                case .loginEmpty:
+//                    self.showAlert(title: "Ошибка", message: "Логин пустой")
+//                case .loginInvalid:
+//                    self.showAlert(title: "Ошибка", message: "Введите корректный логин")
+//                case .passwordInvalid:
+//                    self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
+//                case .passwordEmpty:
+//                    self.showAlert(title: "Ошибка", message: "Пароль пустой")
+//                }
+//            default: break
+//                
+//            }
+//        }
+//        return
+//    }
     
     lazy var passwordGenerateButton = CustomButton(title: "Generate Password") {
         
@@ -84,6 +103,16 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    lazy var createAccountButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("New User? Create account", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        button.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     var logoImageView: UIView = {
         let logo = UIImageView()
@@ -117,7 +146,7 @@ class LoginViewController: UIViewController {
     private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Email or phone"
+        textField.placeholder = "Email"
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -128,9 +157,9 @@ class LoginViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
         
-#if DEBUG
-        textField.text = "admin"
-#endif
+//#if DEBUG
+//        textField.text = "admin"
+//#endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -154,10 +183,10 @@ class LoginViewController: UIViewController {
         textField.returnKeyType = .done
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
-        
-        #if DEBUG
-                textField.text = "1234567"
-        #endif
+//        
+//        #if DEBUG
+//                textField.text = "1234567"
+//        #endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -215,6 +244,7 @@ class LoginViewController: UIViewController {
         contentView.addSubview(loginButton)
         contentView.addSubview(passwordGenerateButton)
         contentView.addSubview(activityIndicator)
+        contentView.addSubview(createAccountButton)
     }
     
     func setupConstraints() {
@@ -235,7 +265,11 @@ class LoginViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
             
-            passwordGenerateButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            createAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            createAccountButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            createAccountButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            passwordGenerateButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 100),
             passwordGenerateButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             passwordGenerateButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             passwordGenerateButton.heightAnchor.constraint(equalToConstant: 50),
@@ -258,6 +292,17 @@ class LoginViewController: UIViewController {
     }
     
     //MARK: - Actions
+    func showAuthError(_ error: Error) {
+        let alert = UIAlertController(title: "Ошибка входа", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    @objc func createAccountButtonTapped() {
+        let vc = CreateAccountViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func generateRandomPassword(length: Int) -> String {
         let charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var password = ""
