@@ -1,6 +1,6 @@
 import UIKit
 
-class PhotoDetailViewController: UIViewController {
+class PhotoDetailVC: UIViewController {
     
     var selectedImage: UIImage?
     var images = [CGImage]()

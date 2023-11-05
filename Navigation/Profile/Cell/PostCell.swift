@@ -2,10 +2,10 @@ import UIKit
 import StorageService
 import iOSIntPackage
 
-class PostTableViewCell: UITableViewCell {
+class PostCell: UITableViewCell {
     
     let imageProcessor = ImageProcessor()
-    static let id = "PostTableViewCell"
+    static let id = "PostCell"
     
     var authorLabel: UILabel = {
         let label = UILabel()
@@ -51,9 +51,9 @@ class PostTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupView()
         setupConstraints()
+        self.selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {

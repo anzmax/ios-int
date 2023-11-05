@@ -1,6 +1,6 @@
 import UIKit
 
-class PostViewController: UIViewController {
+class PostVC: UIViewController {
     
     private let coordinator: FeedCoordinatorProtocol
     

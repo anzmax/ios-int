@@ -1,8 +1,8 @@
 import UIKit
 
-class PhotosCollectionViewCell: UICollectionViewCell {
+class PhotosCell: UICollectionViewCell {
     
-    static let id = "PhotosCollectionViewCell"
+    static let id = "PhotosCell"
     
     var photoImageView: UIImageView = {
         

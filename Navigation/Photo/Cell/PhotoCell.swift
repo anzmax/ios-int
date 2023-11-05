@@ -1,8 +1,8 @@
 import UIKit
 
-class PhotosTableViewCell: UITableViewCell {
+class PhotoCell: UITableViewCell {
     
-    static let id = "PhotosTableViewCell"
+    static let id = "PhotoCell"
     
     var photosLabel: UILabel = {
         

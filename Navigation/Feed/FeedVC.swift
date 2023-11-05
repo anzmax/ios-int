@@ -1,7 +1,7 @@
 import UIKit
 import StorageService
 
-class FeedViewController: UIViewController {
+class FeedVC: UIViewController {
     
     var post: Post? {
         didSet {

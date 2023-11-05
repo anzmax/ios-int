@@ -8,7 +8,7 @@ enum AuthError: Error {
     case passwordEmpty
 }
 
-class LoginViewController: UIViewController {
+class LoginVC: UIViewController {
     
     let checkerService: CheckerServiceProtocol = CheckerService()
     
@@ -299,7 +299,7 @@ class LoginViewController: UIViewController {
     }
 
     @objc func createAccountButtonTapped() {
-        let vc = CreateAccountViewController()
+        let vc = CreateAccountVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -359,7 +359,7 @@ class LoginViewController: UIViewController {
 }
 
 //MARK: - Extensions
-extension LoginViewController: UITextFieldDelegate {
+extension LoginVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

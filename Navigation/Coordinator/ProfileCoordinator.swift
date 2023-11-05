@@ -10,12 +10,12 @@ final class ProfileCoordinator: ProfileCoordinatorProtocol {
     var navigationController: UINavigationController?
     
     func showProfile(coordinator: ProfileCoordinatorProtocol) {
-        let profileVC = ProfileViewController(profileCoordinator: coordinator)
+        let profileVC = ProfileVC(profileCoordinator: coordinator)
         navigationController?.pushViewController(profileVC, animated: true)
     }
     
     func showPhotos() {
-        let photosVC = PhotosViewController()
+        let photosVC = PhotosVC()
         navigationController?.pushViewController(photosVC, animated: true)
     }
 }

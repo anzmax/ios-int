@@ -1,4 +1,5 @@
 import UIKit
+import CoreData
 import StorageService
 import iOSIntPackage
 import SnapKit
@@ -8,7 +9,7 @@ enum ProfileSections: Int, CaseIterable {
     case posts
 }
 
-class ProfileViewController: UIViewController {
+class ProfileVC: UIViewController {
     
     var profileHeaderView = ProfileHeaderView()
     var user: User?
@@ -29,9 +30,9 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.id)
+        tableView.register(PostCell.self, forCellReuseIdentifier: PostCell.id)
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.id)
-        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.id)
+        tableView.register(PhotoCell.self, forCellReuseIdentifier: PhotoCell.id)
         tableView.estimatedRowHeight = 40
         return tableView
     }()
@@ -145,7 +146,7 @@ class ProfileViewController: UIViewController {
 
 //MARK: - Extensions
 
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return ProfileSections.allCases.count
@@ -169,13 +170,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             switch sectionType {
                 
             case .photos:
-                let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.id, for: indexPath) as! PhotosTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: PhotoCell.id, for: indexPath) as! PhotoCell
                 return cell
                 
             case .posts:
-                let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.id, for: indexPath) as! PostTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.id, for: indexPath) as! PostCell
                 let post = posts[indexPath.row]
                 cell.configure(with: post)
+                
+                let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTappedPost(_:)))
+                doubleTapGesture.numberOfTapsRequired = 2
+                cell.addGestureRecognizer(doubleTapGesture)
                 return cell
             }
         }
@@ -210,11 +215,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let sectionType = ProfileSections(rawValue: indexPath.row) {
+        if let sectionType = ProfileSections(rawValue: indexPath.section) {
             switch sectionType {
                 
             case .photos:
-                let photosVC = PhotosViewController()
+                let photosVC = PhotosVC()
                 navigationController?.pushViewController(photosVC, animated: true)
             case .posts:
                 break
@@ -223,7 +228,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ProfileViewController {
+extension ProfileVC {
     
     @objc private func avatarImageTapped() {
         UIView.animate(withDuration: 0.5) {
@@ -252,6 +257,40 @@ extension ProfileViewController {
             self.overlayView.alpha = 0.0
             self.closeButton.alpha = 0.0
             self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func doubleTappedPost(_ gesture: UITapGestureRecognizer) {
+        guard let cell = gesture.view as? PostCell,
+              let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        
+        let heartImageView = UIImageView(image: UIImage(systemName: "heart.fill"))
+        heartImageView.frame = CGRect(x: cell.contentView.frame.width / 2, y: cell.contentView.frame.height / 2, width: 100, height: 100)
+        heartImageView.center = gesture.location(in: cell)
+        heartImageView.contentMode = .scaleAspectFill
+        heartImageView.tintColor = .red
+        cell.contentView.addSubview(heartImageView)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            heartImageView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            heartImageView.alpha = 0
+        }) { _ in
+            heartImageView.removeFromSuperview()
+        }
+        
+        let post = posts[indexPath.row]
+        CoreDataService.shared.addPostToFavorites(post: post)
+        
+        NotificationCenter.default.post(name: .favoritesDidUpdate, object: nil)
+        
+        for controller in self.navigationController?.viewControllers ?? [] {
+            if let favVC = controller as? FavoritesVC {
+                favVC.favoritePosts = CoreDataService.shared.fetchFavoritePosts()
+                favVC.tableView.reloadData()
+                break
+            }
         }
     }
 }
