@@ -19,7 +19,40 @@ class FavoritesVC: UIViewController {
         setupViews()
         setupConstraints()
         loadFavouritePosts()
+        setupNavigationBar()
         NotificationCenter.default.addObserver(self, selector: #selector(updateFavorites), name: .favoritesDidUpdate, object: nil)
+    }
+    
+    func setupNavigationBar() {
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(promptForAuthor))
+        let resetButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(resetFilter))
+        navigationItem.rightBarButtonItems = [resetButton, searchButton]
+    }
+    
+    @objc func promptForAuthor() {
+        let alertController = UIAlertController(title: "Поиск по автору", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        
+        let searchAction = UIAlertAction(title: "Применить", style: .default) { [weak self, weak alertController] _ in
+            guard let authorName = alertController?.textFields?.first?.text else { return }
+            self?.filterPostsBy(author: authorName)
+        }
+        
+        alertController.addAction(searchAction)
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    func filterPostsBy(author: String) {
+        favoritePosts = CoreDataService.shared.fetchFavoritePosts().filter { $0.author.lowercased().contains(author.lowercased()) }
+        tableView.reloadData()
+    }
+    
+    @objc func resetFilter() {
+        loadFavouritePosts()
     }
     
     func setupViews() {
@@ -61,15 +94,31 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { [weak self] (action, view, completionHandler) in
+            guard let self else { return }
+            
             let postToDelete = favoritePosts[indexPath.row]
-            favoritePosts.remove(at: indexPath.row)
-            CoreDataService.shared.deleteFavoritePost(post: postToDelete)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            CoreDataService.shared.persistentContainer.performBackgroundTask { backgroundContext in
+                CoreDataService.shared.deleteFavoritePost(post: postToDelete, context: backgroundContext)
+                
+                DispatchQueue.main.async {
+                    self.favoritePosts.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+            
+            completionHandler(true)
         }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
     }
 }
+
 
 extension Notification.Name {
     static let favoritesDidUpdate = Notification.Name("favoritesDidUpdate")

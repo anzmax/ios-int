@@ -285,14 +285,17 @@ extension ProfileVC {
         
         NotificationCenter.default.post(name: .favoritesDidUpdate, object: nil)
         
-        for controller in self.navigationController?.viewControllers ?? [] {
-            if let favVC = controller as? FavoritesVC {
-                favVC.favoritePosts = CoreDataService.shared.fetchFavoritePosts()
-                favVC.tableView.reloadData()
-                break
+        CoreDataService.shared.persistentContainer.performBackgroundTask { _ in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                
+                for controller in navigationController?.viewControllers ?? [] {
+                    if let favVC = controller as? FavoritesVC {
+                        favVC.favoritePosts = CoreDataService.shared.fetchFavoritePosts()
+                        favVC.tableView.reloadData()
+                    }
+                }
             }
         }
     }
 }
-
-

@@ -17,8 +17,8 @@ class CoreDataService {
         
     }()
     
-    func saveContext() {
-        let context = persistentContainer.viewContext
+    func saveContext(backgroundContext: NSManagedObjectContext? = nil) {
+        let context = backgroundContext ?? persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -30,16 +30,16 @@ class CoreDataService {
     }
     
     func addPostToFavorites(post: Post) {
-        let context = persistentContainer.viewContext
-        let postModel = PostModel(context: context)
-        
-        postModel.author = post.author
-        postModel.descriptionText = post.description
-        postModel.imageData = post.image
-        postModel.likes = Int32(post.likes)
-        postModel.views = Int32(post.views)
-        
-        saveContext()
+        persistentContainer.performBackgroundTask { [weak self] context in
+            let postModel = PostModel(context: context)
+            postModel.author = post.author
+            postModel.descriptionText = post.description
+            postModel.imageData = post.image
+            postModel.likes = Int32(post.likes)
+            postModel.views = Int32(post.views)
+            
+            self?.saveContext(backgroundContext: context)
+        }
     }
     
     func fetchFavoritePosts() -> [Post] {
@@ -61,8 +61,7 @@ class CoreDataService {
         }
     }
     
-    func deleteFavoritePost(post: Post) {
-        let context = persistentContainer.viewContext
+    func deleteFavoritePost(post: Post, context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<PostModel> = PostModel.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "author == %@ AND descriptionText == %@", post.author, post.description)
         
@@ -70,7 +69,7 @@ class CoreDataService {
             let postModels = try context.fetch(fetchRequest)
             if let postModelToDelete = postModels.first {
                 context.delete(postModelToDelete)
-                saveContext()
+                saveContext(backgroundContext: context)
             }
         } catch {
             print("Ошибка при удалении избранного поста: \(error)")
