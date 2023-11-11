@@ -1,6 +1,6 @@
 import UIKit
 
-class InfoViewController: UIViewController {
+class InfoVC: UIViewController {
     
     var residents: [Resident] = []
     
@@ -153,7 +153,7 @@ class InfoViewController: UIViewController {
     }
 }
 
-extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
+extension InfoVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return residents.count

@@ -2,7 +2,7 @@ import UIKit
 import iOSIntPackage
 import Dispatch
 
-class PhotosViewController: UIViewController {
+class PhotosVC: UIViewController {
 
     let imageProcessor = ImageProcessor()
     var photos = [UIImage]()
@@ -23,7 +23,7 @@ class PhotosViewController: UIViewController {
         let cellWidth: CGFloat = (UIScreen.main.bounds.width - totalSpacing - (2 * padding)) / itemsCountInRow
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
-        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.id)
+        collectionView.register(PhotosCell.self, forCellWithReuseIdentifier: PhotosCell.id)
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -112,14 +112,14 @@ class PhotosViewController: UIViewController {
 }
 
 //MARK: - Extensions
-extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PhotosVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.id, for: indexPath) as! PhotosCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCell.id, for: indexPath) as! PhotosCell
         
         let photo = photos[indexPath.item]
         cell.photoImageView.image = photo
@@ -129,7 +129,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedImages = photos.compactMap { $0.cgImage }
-        let photoDetailVC = PhotoDetailViewController()
+        let photoDetailVC = PhotoDetailVC()
         photoDetailVC.images = selectedImages
         
         photoDetailVC.slideshowDidFinish = { [weak self] in

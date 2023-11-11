@@ -11,7 +11,7 @@ final class FeedCoordinator: FeedCoordinatorProtocol {
     var nagigationController: UINavigationController?
     
     func showPost(coordinator: FeedCoordinatorProtocol) {
-        let postVC = PostViewController(coordinator: coordinator)
+        let postVC = PostVC(coordinator: coordinator)
         nagigationController?.pushViewController(postVC, animated: true)
     }
     
@@ -19,7 +19,7 @@ final class FeedCoordinator: FeedCoordinatorProtocol {
         let personService = PersonService()
         let planetService = PlanetService()
         let residentService = ResidentService()
-        let infoVC = InfoViewController(personService: personService, planetService: planetService, residentService: residentService)
+        let infoVC = InfoVC(personService: personService, planetService: planetService, residentService: residentService)
         nagigationController?.pushViewController(infoVC, animated: true)
     }
 }

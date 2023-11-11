@@ -2,7 +2,7 @@ import UIKit
 import FirebaseAuth
 
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountVC: UIViewController {
     
     let checkerService: CheckerServiceProtocol = CheckerService()
     
