@@ -31,7 +31,7 @@ class LoginVC: UIViewController {
     }
     
     //MARK: - UI
-    lazy var loginButton = CustomButton(title: "Log in") { [self] in
+    lazy var loginButton = CustomButton(title: NSLocalizedString("Log in", comment: "")) { [self] in
             guard let loginDelegate = self.loginDelegate else { return }
             let login = self.loginTextField.text ?? ""
             let password = self.passwordTextField.text ?? ""
@@ -44,49 +44,12 @@ class LoginVC: UIViewController {
                 }
             }
         }
-
-//    lazy var loginButton = CustomButton(title: "Log in") { [self] in
-//        
-//        guard let loginDelegate = self.loginDelegate else {return}
-//        let login = self.loginTextField.text ?? ""
-//        let password = self.passwordTextField.text ?? ""
-//        
-//        do {
-//            
-//            if try loginDelegate.check(login: login, password: password) {
-//                self.profileCoordinator.showProfile(coordinator: profileCoordinator)
-//                print("->",profileCoordinator)
-//            }
-//            
-//        } catch (let error) {
-//            
-//            switch error {
-//            case let error as AuthError:
-//                print(error, type(of: error))
-//                
-//                switch error {
-//                case .loginEmpty:
-//                    self.showAlert(title: "Ошибка", message: "Логин пустой")
-//                case .loginInvalid:
-//                    self.showAlert(title: "Ошибка", message: "Введите корректный логин")
-//                case .passwordInvalid:
-//                    self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
-//                case .passwordEmpty:
-//                    self.showAlert(title: "Ошибка", message: "Пароль пустой")
-//                }
-//            default: break
-//                
-//            }
-//        }
-//        return
-//    }
     
-    lazy var passwordGenerateButton = CustomButton(title: "Generate Password") {
+    lazy var passwordGenerateButton = CustomButton(title: NSLocalizedString("Generate password", comment: "")) {
         
         self.activityIndicator.startAnimating()
         
         let randomPassword = self.generateRandomPassword(length: 3)
-        print("Случайный пароль: \(randomPassword)")
         
         DispatchQueue.global(qos: .userInteractive).async {
             
@@ -98,7 +61,7 @@ class LoginVC: UIViewController {
                     self.passwordTextField.text = password
                     self.passwordTextField.isSecureTextEntry = false
                 } else {
-                    print("Пароль не найден.")
+                    print(NSLocalizedString("Пароль не найден", comment: ""))
                 }
             }
         }
@@ -107,7 +70,7 @@ class LoginVC: UIViewController {
     lazy var createAccountButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("New User? Create account", for: .normal)
+        button.setTitle(NSLocalizedString("New User? Create account", comment: ""), for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
@@ -146,7 +109,7 @@ class LoginVC: UIViewController {
     private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Email"
+        textField.placeholder = NSLocalizedString("Email", comment: "")
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -172,7 +135,7 @@ class LoginVC: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Password"
+        textField.placeholder = NSLocalizedString("Password", comment: "")
         textField.text = ""
         textField.textColor = .black
         textField.tintColor = .gray
@@ -293,7 +256,7 @@ class LoginVC: UIViewController {
     
     //MARK: - Actions
     func showAuthError(_ error: Error) {
-        let alert = UIAlertController(title: "Ошибка входа", message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Ошибка входа", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }

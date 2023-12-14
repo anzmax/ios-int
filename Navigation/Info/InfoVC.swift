@@ -20,7 +20,7 @@ class InfoVC: UIViewController {
     
     lazy var alertButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Alert", for: .normal)
+        button.setTitle(NSLocalizedString("Alert", comment: ""), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class InfoVC: UIViewController {
     
     var personInfoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Person"
+        label.text = NSLocalizedString("Person", comment: "")
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class InfoVC: UIViewController {
     
     var planetInfoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Planet"
+        label.text = NSLocalizedString("Planet", comment: "")
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -96,13 +96,12 @@ class InfoVC: UIViewController {
     
     //MARK: - Actions
     @objc func showAlert() {
-        print("Show Alert")
         
-        let alertController = UIAlertController.init(title: "Title", message: "Message", preferredStyle: .alert)
+        let alertController = UIAlertController.init(title: NSLocalizedString("Title", comment: ""), message: NSLocalizedString("Message", comment: ""), preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Ok", style: .default)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
         
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
@@ -181,7 +180,7 @@ class ResidentCell: UITableViewCell {
     
     var residentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name"
+        label.text = NSLocalizedString("Name", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         return label

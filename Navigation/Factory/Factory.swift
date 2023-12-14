@@ -40,7 +40,7 @@ final class Factory {
             logInVC.loginDelegate = loginInspector
             let image2 = UIImage.init(systemName: "person")
             let selectedImage2 = UIImage(systemName: "person.fill")
-            navigationController.tabBarItem = UITabBarItem.init(title: "Profile", image: image2, selectedImage: selectedImage2)
+            navigationController.tabBarItem = UITabBarItem.init(title: NSLocalizedString("Profile", comment: ""), image: image2, selectedImage: selectedImage2)
             navigationController.setViewControllers([logInVC], animated: true)
             
         case .feed:
@@ -50,14 +50,14 @@ final class Factory {
             let feedVC = FeedVC(feedViewModel: viewModel, feedCoordinator: coordinator)
             let image = UIImage.init(systemName: "house")
             let selectedImage = UIImage.init(systemName: "house.fill")
-            navigationController.tabBarItem = UITabBarItem.init(title: "Feed", image: image, selectedImage: selectedImage)
+            navigationController.tabBarItem = UITabBarItem.init(title: NSLocalizedString("Feed", comment: ""), image: image, selectedImage: selectedImage)
             navigationController.setViewControllers([feedVC], animated: true)
             
         case .favourites:
             let favVC = FavoritesVC()
             let image = UIImage(systemName: "heart")
             let selectedImage = UIImage.init(systemName: "heart.fill")
-            navigationController.tabBarItem = UITabBarItem(title: "Likes", image: image, selectedImage: selectedImage)
+            navigationController.tabBarItem = UITabBarItem(title: NSLocalizedString("Likes", comment: ""), image: image, selectedImage: selectedImage)
             navigationController.setViewControllers([favVC], animated: true)
             
             

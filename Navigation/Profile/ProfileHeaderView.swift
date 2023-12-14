@@ -9,7 +9,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     static let id = "ProfileHeaderView"
     
-    private lazy var statusButton = CustomButton(title: "Show Status", titleColor: .white) { [self] in
+    private lazy var statusButton = CustomButton(title: NSLocalizedString("Show Status", comment: ""), titleColor: .white) { [self] in
         
         let result = checkStatus(text: self.textField.text)
         
@@ -34,7 +34,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "No Drama Lama"
+        label.text = NSLocalizedString("No Drama Lama", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
@@ -43,7 +43,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     var statusLabel: UILabel = {
         let label = UILabel()
-        label.text = "Waiting for something..."
+        label.text = NSLocalizedString("Waiting for something...", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
@@ -79,7 +79,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.delegate = self
-        textField.placeholder = "Enter your text"
+        textField.placeholder = NSLocalizedString("Enter your text", comment: "")
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.backgroundColor = UIColor.white

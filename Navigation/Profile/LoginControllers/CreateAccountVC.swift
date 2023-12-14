@@ -6,7 +6,7 @@ class CreateAccountVC: UIViewController {
     
     let checkerService: CheckerServiceProtocol = CheckerService()
     
-    private lazy var signUpButton = CustomButton(title: "Sign Up") { [self] in
+    private lazy var signUpButton = CustomButton(title: NSLocalizedString("Sign Up", comment: "")) { [self] in
             let login = self.loginTextField.text ?? ""
             let password = self.passwordTextField.text ?? ""
             
@@ -59,7 +59,7 @@ class CreateAccountVC: UIViewController {
     private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Email"
+        textField.placeholder = NSLocalizedString("Email", comment: "")
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -81,7 +81,7 @@ class CreateAccountVC: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Password"
+        textField.placeholder = NSLocalizedString("Password", comment: "")
         textField.text = ""
         textField.textColor = .black
         textField.tintColor = .gray
@@ -161,7 +161,7 @@ class CreateAccountVC: UIViewController {
     
     //MARK:- Actions
     func showAuthError(_ error: Error) {
-        let alert = UIAlertController(title: "Ошибка входа", message: error.localizedDescription, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Ошибка входа", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
