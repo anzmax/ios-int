@@ -71,8 +71,9 @@ class PostCell: UITableViewCell {
     func configure(with post: Post) {
         authorLabel.text = post.author
         descriptionLabel.text = post.description
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        likesLabel.text = String(format: NSLocalizedString("Likes", comment: ""), post.likes)
+        viewsLabel.text = String(format: NSLocalizedString("Views", comment: ""), post.views)
+
         
         if let image = UIImage(named: post.image) {
             ImageProcessor().processImage(sourceImage: image, filter: .fade) { image in

@@ -48,7 +48,6 @@ class PhotosVC: UIViewController {
         imageProcessor.processImagesOnThread(sourceImages: photoImages, filter: .fade, qos: .userInteractive) { processedImages in
             
             guard !processedImages.isEmpty else {
-                print("No processed images received.")
                 return
             }
 
@@ -83,7 +82,7 @@ class PhotosVC: UIViewController {
     
     func setupViews() {
         view.backgroundColor = .white
-        self.title = "Photo gallery"
+        self.title = NSLocalizedString("Photo gallery", comment: "")
         view.addSubview(topView)
         view.addSubview(collectionView)
         collectionView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)

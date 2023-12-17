@@ -9,7 +9,7 @@ class PhotoCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.text = "Photos"
+        label.text = NSLocalizedString("Photos", comment: "")
         
         return label
     }()

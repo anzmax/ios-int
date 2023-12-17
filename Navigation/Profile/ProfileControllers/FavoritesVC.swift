@@ -30,17 +30,17 @@ class FavoritesVC: UIViewController {
     }
     
     @objc func promptForAuthor() {
-        let alertController = UIAlertController(title: "Поиск по автору", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Поиск по автору", comment: ""), message: nil, preferredStyle: .alert)
         alertController.addTextField()
         
-        let searchAction = UIAlertAction(title: "Применить", style: .default) { [weak self, weak alertController] _ in
+        let searchAction = UIAlertAction(title: NSLocalizedString("Применить", comment: ""), style: .default) { [weak self, weak alertController] _ in
             guard let authorName = alertController?.textFields?.first?.text else { return }
             self?.filterPostsBy(author: authorName)
         }
         
         alertController.addAction(searchAction)
         
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Отмена", comment: ""), style: .cancel)
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
@@ -96,7 +96,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { [weak self] (action, view, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Удалить", comment: "")) { [weak self] (action, view, completionHandler) in
             guard let self else { return }
             
             let postToDelete = favoritePosts[indexPath.row]

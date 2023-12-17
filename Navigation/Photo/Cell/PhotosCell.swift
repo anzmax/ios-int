@@ -5,12 +5,10 @@ class PhotosCell: UICollectionViewCell {
     static let id = "PhotosCell"
     
     var photoImageView: UIImageView = {
-        
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        
         return image
     }()
     

@@ -14,14 +14,14 @@ class PostVC: UIViewController {
     }
     
     lazy var infoBarButtonItem: UIBarButtonItem = {
-        var button = UIBarButtonItem.init(title: "Info", style: .plain, target: self, action: #selector(showInfoScreen))
+        var button = UIBarButtonItem.init(title: NSLocalizedString("Info", comment: ""), style: .plain, target: self, action: #selector(showInfoScreen))
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemYellow
-        title = "My Post"
+        title = NSLocalizedString("My Post", comment: "")
         
         setupViews()
         setupConstraints()

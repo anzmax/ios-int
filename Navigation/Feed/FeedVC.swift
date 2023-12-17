@@ -25,15 +25,14 @@ class FeedVC: UIViewController {
     }
     
     
-    lazy var checkGuessButton = CustomButton(title: "Check Guess", titleColor: .white) {
+    lazy var checkGuessButton = CustomButton(title: NSLocalizedString("Check Guess", comment: ""), titleColor: .white) {
         self.buttonTapped()
-        print("Button tapped")
     }
     
     lazy var passwordGuessTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = "Жду твое слово"
+        textField.placeholder = NSLocalizedString("Жду твое слово", comment: "")
         textField.textColor = .black
         textField.tintColor = .gray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -66,7 +65,7 @@ class FeedVC: UIViewController {
     
     lazy var postButtonFirst: UIButton = {
         let button = UIButton(frame: CGRect.init(x: 0, y: 0, width: 250, height: 70))
-        button.setTitle("Open Post", for: .normal)
+        button.setTitle(NSLocalizedString("Open Post", comment: ""), for: .normal)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(showPostScreen), for: .touchUpInside)
@@ -76,7 +75,7 @@ class FeedVC: UIViewController {
     
     lazy var postButtonSecond: UIButton = {
         let button = UIButton(frame: CGRect.init(x: 0, y: 0, width: 250, height: 70))
-        button.setTitle("Open Post", for: .normal)
+        button.setTitle(NSLocalizedString("Open Post", comment: ""), for: .normal)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(showPostScreen), for: .touchUpInside)
@@ -86,7 +85,7 @@ class FeedVC: UIViewController {
     
     lazy var colorIndicatorLabel: UILabel = {
         let label = UILabel()
-        label.text = "Check Again"
+        label.text = NSLocalizedString("Check Again", comment: "")
         label.backgroundColor = .white
         label.textColor = .systemBlue
         label.textAlignment = .center
@@ -121,16 +120,16 @@ class FeedVC: UIViewController {
                 self.checkGuess(word: self.passwordGuessTextField.text ?? "")
 
             case .error:
-                print("error")
+                print(NSLocalizedString("error", comment: ""))
                 
             case .alertSuccess:
-                showAlert(message: "Угадал!")
+                showAlert(message: NSLocalizedString("Угадал!", comment: ""))
                 
             case .alertFailure:
-                showAlert(message: "Пум пум пуууум:(")
+                showAlert(message: NSLocalizedString("Пум пум пуууум:(", comment: ""))
                 
             case .alertEmpty:
-                showAlert(message: "Введите слово")
+                showAlert(message: NSLocalizedString("Введите слово", comment: ""))
             case .navigateToPost:
                 showPostScreen()
             }
@@ -192,11 +191,11 @@ class FeedVC: UIViewController {
         if isCorrect {
             colorIndicatorLabel.backgroundColor = .systemGreen
             colorIndicatorLabel.textColor = .white
-            colorIndicatorLabel.text = "Юхууу"
+            colorIndicatorLabel.text = NSLocalizedString("Юхууу", comment: "")
         } else {
             colorIndicatorLabel.backgroundColor = .systemRed
             colorIndicatorLabel.textColor = .white
-            colorIndicatorLabel.text = "Мммм нет"
+            colorIndicatorLabel.text = NSLocalizedString("Мммм нет", comment: "")
         }
     }
     
@@ -206,7 +205,6 @@ class FeedVC: UIViewController {
 
     @objc func checkAgainLabelTapped() {
         feedViewModel.sendAction(.checkAgainLabelTapped(word: passwordGuessTextField.text ?? ""))
-        print("Label tapped")
     }
     
     @objc func showPostScreen() {

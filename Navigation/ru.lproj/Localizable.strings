@@ -1,0 +1,57 @@
+"Password" = "Пароль";
+"Email" = "Электронная почта";
+"Log in" = "Войти";
+"Sign Up" = "Зарегистрироваться";
+"New User? Create account" = "Создать аккаунт";
+"Generate password" = "Сгенерировать пароль";
+"Show Status" = "Показать статус";
+"Waiting for something..." = "Чего-то да жду";
+"Enter your text" = "Введи текст";
+"No Drama Lama" = "Лама Без Драмы";
+"Photos" = "Фотографии";
+"Photo gallery" = "Галерея";
+"Likes" = "Лайки: %d";
+"Views" = "Просмотры: %d";
+"Royal Mail" = "Королевская Почта";
+"Ryan Daws" = "Райан Дос";
+"Urban Putt" = "Убран Патт";
+"Burning Man Festival" = "Фестиваль Бернинг Мэн";
+"Human" = "Хуман";
+"György Palkó" = "Гиоргий Палко";
+"Art News" = "Новости Исскусства";
+"A special collection of stamps has been issued to mark the 75th anniversary of the arrival of the hundreds of passengers from the Caribbean to the UK on the Empire Windrush. Eight Royal Mail stamps featuring original artworks by Black British artists were commissioned to celebrate the occasion, which will be revealed at the Black Cultural Archives in Brixton on Thursday." = "Выпущена специальная коллекция почтовых марок, посвященная 75-летию прибытия сотен пассажиров из Карибского бассейна в Великобританию на корабле Эмпайр Виндраш. Восемь марок от Royal Mail, на которых изображены оригинальные произведения чернокожих британских художников, были созданы для отмечания этого события. Они будут представлены в Черном культурном архиве в Брикстоне в четверг.";
+
+"Google creates new AI division to challenge OpenAI. Google has consolidated its AI research labs, Google Brain and DeepMind, into a new unit named Google DeepMind. The new unit will be responsible for spearheading groundbreaking AI products and advancements, and it will work closely with other Google product areas to deliver AI research and products." = "Google объединил свои лаборатории исследований в области искусственного интеллекта, Google Brain и DeepMind, в новое подразделение под названием Google DeepMind. Это подразделение будет отвечать за разработку прорывных продуктов и достижений в области ИИ, а также будет тесно сотрудничать с другими направлениями продуктов Google для предоставления исследований и продуктов в области ИИ.";
+
+"Do you enjoy your typical American food along with mini-golfing? If you come to Urban Putt, you can experience both at the same time! Urban Putt’s two locations in San Francisco and Denver feature an upscaled version of tasty American-fare food and cocktails that go perfectly with your meal. Then, once you’re done eating, you can enjoy a unique indoor mini-golf course that is perfect for everybody of all ages!" = "Любите ли вы традиционную американскую кухню и игру в мини-гольф? Тогда вам стоит посетить Urban Putt, где можно одновременно насладиться и тем, и другим! Два заведения Urban Putt в Сан-Франциско и Денвере предлагают роскошную версию вкусных блюд американской кухни и коктейлей, которые идеально сочетаются с вашим обедом. А после трапезы вы сможете насладиться уникальным крытым полем для мини-гольфа, которое подойдет людям всех возрастов!";
+
+"Today, Burning Man is celebrated in the Nevada desert in late August and early September and now draws tens of thousands of participants. Black Rock City offers a venue for a wide range of participation and artistic expression, which can include pyrotechnics, performance art using light or fire, nude body painting, Mutant Vehicles and just about anything else that lends to the Burning Man experience." = "Сегодня фестиваль Burning Man проводится в пустыне Невады в конце августа и начале сентября, привлекая десятки тысяч участников. Город Black Rock City предоставляет место для широкого спектра участия и художественного выражения, включая пиротехнику, перформансы с использованием света или огня, рисование на голом теле, Мутантные Транспортные Средства и множество других форм, которые способствуют созданию уникального опыта Burning Man.";
+
+"Strategic design studio Human also put the ecstatic colours trend to good use in their designs for Casa Centinela, one of the most important tequila distilleries in Mexico. These can designs for the brand's RTD cocktails take inspiration from a bold vintage layout that represents the brand's heritage but with a twist in the colour palette representing Mexico's folklore and the vibrancy of the cocktail scene." = "Стратегическая дизайнерская студия Human также эффективно использовала тренд ярких цветов в своих дизайнах для Casa Centinela, одной из важнейших текилерных в Мексике. Дизайн этикеток для готовых к употреблению коктейлей бренда вдохновлен смелым винтажным стилем, отражающим наследие бренда, но с неожиданным акцентом в цветовой палитре, отражающим мексиканский фольклор и яркость коктейльной сцены.";
+
+"Architectural firm, Hello Wood – known for its unique cabin houses and builder festivals – has again designed a spectacular public installation. Placed in the centre of the Factory’ard in Veszprém, The Garden of Communities is an artwork that celebrates the rich culture of the Veszprém-Balaton region." = "Архитектурная фирма Hello Wood, известная своими уникальными домиками и фестивалями строителей, вновь спроектировала впечатляющую общественную инсталляцию. Расположенная в центре Factory’ard в Веспреме, Сад Общин – это произведение искусства, отмечающее богатую культуру региона Веспрем-Балатон.";
+
+"Artists are important communicators in times of crisis. Art can connect the disconnected and find meaning in difficult times. The exhibition aims to give a platform for artists to invoke questions, dispel myths and forge a historical narrative of this unique time in history." = "
+Художники являются важными коммуникаторами во времена кризиса. Искусство может соединить разобщенных и найти смысл в трудные времена. Цель выставки – предоставить платформу для художников, чтобы они могли задать вопросы, развенчать мифы и создать историческую повесть об этом уникальном периоде в истории.";
+
+"Check Guess" = "Проверить Догадку";
+"Open Post" = "Открыть Пост";
+"Check Again" = "Проверить Снова";
+"error" = "Ошибка";
+"Profile" = "Профиль";
+"Feed" = "Лента";
+"Likes" = "Лайки";
+"Alert" = "Алерт";
+"Person" = "Человек";
+"Planet" = "Планета";
+"Title" = "Название";
+"Message" = "Сообщение";
+"Cancel" = "Отмена";
+"Name" = "Имя";
+"My Post" = "Мой Пост";
+"Info" = "Инфо";
+
+
+
+
+
