@@ -20,7 +20,7 @@ class PostVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .customWhite
         title = NSLocalizedString("My Post", comment: "")
         
         setupViews()

@@ -71,7 +71,7 @@ class LoginVC: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(NSLocalizedString("New User? Create account", comment: ""), for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.customBlue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         button.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
         return button
@@ -109,9 +109,8 @@ class LoginVC: UIViewController {
     private lazy var loginTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = NSLocalizedString("Email", comment: "")
-        textField.textColor = .black
-        textField.tintColor = .gray
+        textField.textColor = .customBlack
+        textField.tintColor = .customGray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -119,10 +118,17 @@ class LoginVC: UIViewController {
         textField.returnKeyType = .done
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
+        let placeholderText = NSLocalizedString("Email", comment: "")
+            let attributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.customGray,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
+            ]
+
+            textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
         
-//#if DEBUG
-//        textField.text = "admin"
-//#endif
+#if DEBUG
+        textField.text = "test@mail.ru"
+#endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -135,10 +141,9 @@ class LoginVC: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemGray6
-        textField.placeholder = NSLocalizedString("Password", comment: "")
         textField.text = ""
-        textField.textColor = .black
-        textField.tintColor = .gray
+        textField.textColor = .customBlack
+        textField.tintColor = .customGray
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -146,10 +151,18 @@ class LoginVC: UIViewController {
         textField.returnKeyType = .done
         textField.clearButtonMode = .whileEditing
         textField.contentVerticalAlignment = .center
-//        
-//        #if DEBUG
-//                textField.text = "1234567"
-//        #endif
+        let placeholderText = NSLocalizedString("Password", comment: "")
+            let attributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.customGray,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
+            ]
+
+            textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
+
+
+        #if DEBUG
+                textField.text = "123456"
+        #endif
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -171,7 +184,7 @@ class LoginVC: UIViewController {
     
     private lazy var contentView: UIView = {
         let contentView = UIView()
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .customWhite
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
@@ -195,7 +208,7 @@ class LoginVC: UIViewController {
     }
     
     func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .customWhite
         navigationController?.navigationBar.isHidden = true
         
         view.addSubview(scrollView)

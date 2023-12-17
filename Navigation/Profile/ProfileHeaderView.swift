@@ -37,7 +37,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         label.text = NSLocalizedString("No Drama Lama", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
+        label.textColor = .customBlack
         return label
     }()
     
@@ -46,7 +46,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         label.text = NSLocalizedString("Waiting for something...", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .gray
+        label.textColor = .customGray
         return label
     }()
     
@@ -79,18 +79,23 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.delegate = self
-        textField.placeholder = NSLocalizedString("Enter your text", comment: "")
-        textField.textColor = .black
+        textField.textColor = .customBlack
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textField.backgroundColor = UIColor.white
+        textField.backgroundColor = UIColor.customWhite
         textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 10
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
         textField.clearButtonMode = UITextField.ViewMode.whileEditing
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        let placeholderText = NSLocalizedString("Enter your text", comment: "")
+            let attributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.customGray,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
+            ]
+
+            textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = leftView
@@ -100,6 +105,14 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         return textField
     }()
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            textField.layer.borderColor = UIColor.customBlack.cgColor
+        }
+    }
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -173,7 +186,7 @@ extension ProfileHeaderView: UITextFieldDelegate {
             print("updated ->", updatedText)
 
             if updatedText.isNonEmpty {
-                textField.layer.borderColor = UIColor.black.cgColor
+                textField.layer.borderColor = UIColor.customBlack.cgColor
             } else {
                 textField.layer.borderColor = UIColor.red.cgColor
             }

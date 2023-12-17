@@ -31,10 +31,9 @@ class FeedVC: UIViewController {
     
     lazy var passwordGuessTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .systemGray6
-        textField.placeholder = NSLocalizedString("Жду твое слово", comment: "")
-        textField.textColor = .black
-        textField.tintColor = .gray
+        textField.backgroundColor = .customWhite
+        textField.textColor = .customBlack
+        textField.tintColor = .customBlack
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -46,6 +45,14 @@ class FeedVC: UIViewController {
         textField.clipsToBounds = true
         textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        let placeholderText = NSLocalizedString("Жду твое слово", comment: "")
+            let attributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.customGray,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
+            ]
+
+            textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: attributes)
         return textField
     }()
     
@@ -137,7 +144,7 @@ class FeedVC: UIViewController {
     }
     
     func setupViews() {
-        view.backgroundColor = .systemOrange
+        view.backgroundColor = .customWhite
         view.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(postButtonFirst)
         verticalStackView.addArrangedSubview(postButtonSecond)

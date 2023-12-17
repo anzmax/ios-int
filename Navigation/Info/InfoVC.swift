@@ -32,7 +32,7 @@ class InfoVC: UIViewController {
         let label = UILabel()
         label.text = NSLocalizedString("Person", comment: "")
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .white
+        label.textColor = .customWhite
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,7 +41,7 @@ class InfoVC: UIViewController {
         let label = UILabel()
         label.text = NSLocalizedString("Planet", comment: "")
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .white
+        label.textColor = .customWhite
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -49,7 +49,7 @@ class InfoVC: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .customWhite
         tableView.register(ResidentCell.self, forCellReuseIdentifier: ResidentCell.id)
         tableView.delegate = self
         tableView.dataSource = self
@@ -182,7 +182,7 @@ class ResidentCell: UITableViewCell {
         let label = UILabel()
         label.text = NSLocalizedString("Name", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .customBlack
         return label
     }()
     required init?(coder: NSCoder) {
@@ -190,6 +190,7 @@ class ResidentCell: UITableViewCell {
     }
     
     private func setupViews() {
+        contentView.backgroundColor = .customWhite
         contentView.addSubview(residentLabel)
     }
     

@@ -7,7 +7,7 @@ class FavoritesVC: UIViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .customWhite
         tableView.register(PostCell.self, forCellReuseIdentifier: PostCell.id)
         tableView.delegate = self
         tableView.dataSource = self
@@ -56,7 +56,7 @@ class FavoritesVC: UIViewController {
     }
     
     func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .customWhite
         view.addSubview(tableView)
     }
     

@@ -5,12 +5,11 @@ class PhotoCell: UITableViewCell {
     static let id = "PhotoCell"
     
     var photosLabel: UILabel = {
-        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.text = NSLocalizedString("Photos", comment: "")
-        
+        label.textColor = .customBlack
         return label
     }()
     
@@ -33,30 +32,26 @@ class PhotoCell: UITableViewCell {
             
             images.append(photoView)
         }
-        
         return images
     }()
     
     
     var arrowImageView: UIImageView = {
-        
         let arrowImage = UIImageView()
         arrowImage.image = UIImage(systemName: "arrow.forward")
-        arrowImage.tintColor = .black
+        arrowImage.tintColor = .customBlack
         arrowImage.translatesAutoresizingMaskIntoConstraints = false
         
         return arrowImage
     }()
     
     var horizontalStackView: UIStackView = {
-        
         let stackView = UIStackView()
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = .customWhite
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         return stackView
     }()
     
@@ -75,7 +70,7 @@ class PhotoCell: UITableViewCell {
     
     func setupViews() {
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .customWhite
         contentView.addSubview(photosLabel)
         contentView.addSubview(arrowImageView)
         contentView.addSubview(horizontalStackView)

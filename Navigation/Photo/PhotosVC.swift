@@ -14,7 +14,7 @@ class PhotosVC: UIViewController {
         layout.minimumLineSpacing = 8
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .customWhite
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         let padding: CGFloat = 8
@@ -81,7 +81,7 @@ class PhotosVC: UIViewController {
     }
     
     func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .customWhite
         self.title = NSLocalizedString("Photo gallery", comment: "")
         view.addSubview(topView)
         view.addSubview(collectionView)
