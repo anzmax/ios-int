@@ -11,7 +11,7 @@ class PostCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textColor = .black
+        label.textColor = .customBlack
         label.numberOfLines = 2
         return label
     }()
@@ -21,14 +21,14 @@ class PostCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .systemGray
+        label.textColor = .customGray
         return label
     }()
     
     var postImageView: UIImageView = {
         let postImage = UIImageView()
         postImage.contentMode = .scaleToFill
-        postImage.backgroundColor = .black
+        postImage.backgroundColor = .customWhite
         postImage.translatesAutoresizingMaskIntoConstraints = false
         return postImage
     }()
@@ -37,7 +37,7 @@ class PostCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .black
+        label.textColor = .customBlack
         return label
     }()
     
@@ -45,7 +45,7 @@ class PostCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .black
+        label.textColor = .customBlack
         return label
     }()
     
@@ -61,6 +61,7 @@ class PostCell: UITableViewCell {
     }
     
     private func setupView() {
+        contentView.backgroundColor = .customWhite
         contentView.addSubview(authorLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(postImageView)

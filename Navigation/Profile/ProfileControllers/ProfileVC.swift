@@ -27,6 +27,7 @@ class ProfileVC: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .customWhite
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -65,15 +66,15 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .customWhite
         setupViews()
         setupConstraints()
         
-#if DEBUG
-        view.backgroundColor = .gray
-#else
-        view.backgroundColor = .white
-#endif
+//#if DEBUG
+//        view.backgroundColor = .gray
+//#else
+//        view.backgroundColor = .white
+//#endif
         
         if let user = self.user {
             updateUser(user: user)

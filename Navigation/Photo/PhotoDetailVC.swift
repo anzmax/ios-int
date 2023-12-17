@@ -24,7 +24,7 @@ class PhotoDetailVC: UIViewController {
     }
     
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .customWhite
         view.addSubview(imageView)
         if let image = selectedImage {
             imageView.image = image

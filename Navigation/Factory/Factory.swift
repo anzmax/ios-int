@@ -17,17 +17,23 @@ final class Factory {
         
     }
     
-   private func startModule() {
+    private func startModule() {
+        UITabBar.appearance().tintColor = .customBlue
+        UITabBar.appearance().unselectedItemTintColor = .customGray
+        
+        let tabBarItemAppearance = UITabBarItem.appearance()
+        
+        tabBarItemAppearance.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.customBlue], for: .selected)
+        
         switch flow {
-            
         case .profile:
             let service: UserService?
             
-            #if DEBUG
+#if DEBUG
             service = TestUserService()
-            #else
+#else
             service = CurrentUserService()
-            #endif
+#endif
             
             guard let service = service else { return }
             let checkerService = CheckerService()
@@ -59,8 +65,6 @@ final class Factory {
             let selectedImage = UIImage.init(systemName: "heart.fill")
             navigationController.tabBarItem = UITabBarItem(title: NSLocalizedString("Likes", comment: ""), image: image, selectedImage: selectedImage)
             navigationController.setViewControllers([favVC], animated: true)
-            
-            
         }
     }
 }

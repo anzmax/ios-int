@@ -41,6 +41,7 @@
 		F4C12C842A28EE950008B003 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C12C832A28EE950008B003 /* PostVC.swift */; };
 		F4C12C862A28EEA90008B003 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C12C852A28EEA90008B003 /* ProfileVC.swift */; };
 		F4C6D4272A8D110100AA49D4 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D4262A8D110100AA49D4 /* iOSIntPackage */; };
+		F4DD2AF32B2F28DF00F1D54A /* Ext+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DD2AF22B2F28DF00F1D54A /* Ext+UIColor.swift */; };
 		F4E134502B29DF3800FF64DE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4E134522B29DF3800FF64DE /* Localizable.strings */; };
 		F4F209572AD5B77E00D86400 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F209562AD5B77E00D86400 /* NetworkService.swift */; };
 		F4F66DF72A728DF200127162 /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = F4F66DF62A728DF200127162 /* StorageService.docc */; };
@@ -131,6 +132,7 @@
 		F4C12C812A28EE850008B003 /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		F4C12C832A28EE950008B003 /* PostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		F4C12C852A28EEA90008B003 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		F4DD2AF22B2F28DF00F1D54A /* Ext+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIColor.swift"; sourceTree = "<group>"; };
 		F4E1344D2B29DEE100FF64DE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F4E134532B29DF3A00FF64DE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4E134682B2B2C8B00FF64DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				F4738DBC2A8396FB003E2311 /* Info */,
 				F4738DBD2A839709003E2311 /* Post */,
 				F49E6B6C2AA4DD9E00981E47 /* Elements */,
+				F4DD2AF12B2F28B600F1D54A /* Extensions */,
 				F4738DBA2A839693003E2311 /* Resources */,
 				F4E134522B29DF3800FF64DE /* Localizable.strings */,
 			);
@@ -389,6 +392,14 @@
 				F439535D2AF7EE7D0058B811 /* Cell */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		F4DD2AF12B2F28B600F1D54A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4DD2AF22B2F28DF00F1D54A /* Ext+UIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F4F209552AD5B75000D86400 /* Networking */ = {
@@ -597,6 +608,7 @@
 				F4FD29592A3B2AC600C4A766 /* PostCell.swift in Sources */,
 				F4F209572AD5B77E00D86400 /* NetworkService.swift in Sources */,
 				F4B31B472A27D29E00AEAF59 /* AppDelegate.swift in Sources */,
+				F4DD2AF32B2F28DF00F1D54A /* Ext+UIColor.swift in Sources */,
 				F4738D192A7BA246003E2311 /* User.swift in Sources */,
 				F4F795692ADC093A00A9CFA1 /* PlanetService.swift in Sources */,
 				F4F795672ADC092600A9CFA1 /* PersonService.swift in Sources */,
