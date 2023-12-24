@@ -4,14 +4,21 @@ import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var window: UIWindow?
+    var localNotificationsService = LocalNotificationsService()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-        UINavigationBar.appearance().tintColor = UIColor.customBlue
-        return true
-    }
+         FirebaseApp.configure()
+         UINavigationBar.appearance().tintColor = UIColor.customBlue
+         
+         localNotificationsService.requestAuthorization { granted in
+             if granted {
+                 self.localNotificationsService.registerForLatestUpdatesIfPossible()
+             }
+         }
+         return true
+     }
 
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

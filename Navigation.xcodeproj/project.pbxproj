@@ -25,6 +25,7 @@
 		F43953582AF7D5400058B811 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43953572AF7D5400058B811 /* CoreDataService.swift */; };
 		F43953592AF7DCC10058B811 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B9A2A288FE400AEAF59 /* Post.swift */; };
 		F45225042ABF358B00A5ACBC /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45225032ABF358B00A5ACBC /* BruteForce.swift */; };
+		F4620D912B32F4180046CD7C /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4620D902B32F4180046CD7C /* LocalNotificationsService.swift */; };
 		F4738D172A7B8EB8003E2311 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4738D162A7B8EB8003E2311 /* UserServices.swift */; };
 		F4738D192A7BA246003E2311 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4738D182A7BA246003E2311 /* User.swift */; };
 		F4738DB72A8388DA003E2311 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4738DB62A8388DA003E2311 /* Checker.swift */; };
@@ -114,6 +115,7 @@
 		F43953542AF7D4870058B811 /* PostModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostModel.xcdatamodel; sourceTree = "<group>"; };
 		F43953572AF7D5400058B811 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		F45225032ABF358B00A5ACBC /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
+		F4620D902B32F4180046CD7C /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		F4738D162A7B8EB8003E2311 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		F4738D182A7BA246003E2311 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F4738DB62A8388DA003E2311 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
@@ -271,6 +273,14 @@
 			path = BruteForce;
 			sourceTree = "<group>";
 		};
+		F4620D8F2B32F3F40046CD7C /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				F4620D902B32F4180046CD7C /* LocalNotificationsService.swift */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 		F4738DB82A838E75003E2311 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				F4738DB82A838E75003E2311 /* App */,
+				F4620D8F2B32F3F40046CD7C /* NotificationService */,
 				F43953562AF7D5190058B811 /* CoreData */,
 				F4F209552AD5B75000D86400 /* Networking */,
 				F4019AC42AB840D90000831D /* Factory */,
@@ -603,6 +614,7 @@
 				F4019AD12AB8448E0000831D /* FeedCoordinator.swift in Sources */,
 				F4FD2A662A42FC7E00C4A766 /* PhotoCell.swift in Sources */,
 				F49E6B702AA4E8FF00981E47 /* FeedModel.swift in Sources */,
+				F4620D912B32F4180046CD7C /* LocalNotificationsService.swift in Sources */,
 				F4738DBF2A839854003E2311 /* Login.swift in Sources */,
 				F49E6B6E2AA4DDD900981E47 /* CustomButton.swift in Sources */,
 				F4FD29592A3B2AC600C4A766 /* PostCell.swift in Sources */,
@@ -826,7 +838,6 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Resources/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -853,7 +864,6 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Resources/Info.plist;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
