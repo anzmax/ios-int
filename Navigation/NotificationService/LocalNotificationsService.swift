@@ -1,33 +1,34 @@
 import UIKit
 import UserNotifications
 
-class LocalNotificationsService {
-    
-    func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-            completion(granted)
-        }
-    }
-    
+final class LocalNotificationsService {
+
+    let center = UNUserNotificationCenter.current()
+
     func registerForLatestUpdatesIfPossible() {
-        self.scheduleDailyUpdateNotification()
-    }
+        center.requestAuthorization(options: [.sound, .badge, .alert]) { [weak self] success, error in
+            if success {
+                let content = UNMutableNotificationContent()
+                content.title = "Посмотрите последние обновления"
+                content.sound = .default
 
-    private func scheduleDailyUpdateNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Посмотрите последние обновления"
-        content.sound = .default
+                var dateComponents = DateComponents()
+                dateComponents.hour = 17
+                dateComponents.minute = 26
 
-        var dateComponents = DateComponents()
-        dateComponents.hour = 19
-        dateComponents.minute = 25
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: "dailyUpdate", content: content, trigger: trigger)
+                self?.center.add(request) { error in
+                    if let error = error {
+                        print("Ошибка при планировании уведомления: \(error)")
+                    }
+                }
 
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Ошибка при планировании уведомления: \(error)")
+            } else if let error = error {
+                print("Ошибка авторизации уведомлений: \(error.localizedDescription)")
+            } else {
+                print("Авторизация уведомлений не получена")
             }
         }
     }
