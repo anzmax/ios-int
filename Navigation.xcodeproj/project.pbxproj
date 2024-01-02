@@ -32,6 +32,7 @@
 		F4738DBF2A839854003E2311 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4738DBE2A839854003E2311 /* Login.swift */; };
 		F49E6B6E2AA4DDD900981E47 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E6B6D2AA4DDD900981E47 /* CustomButton.swift */; };
 		F49E6B702AA4E8FF00981E47 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49E6B6F2AA4E8FF00981E47 /* FeedModel.swift */; };
+		F4A807992B39C99000EAD698 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A807982B39C99000EAD698 /* LocalAuthorizationService.swift */; };
 		F4B31B472A27D29E00AEAF59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B462A27D29E00AEAF59 /* AppDelegate.swift */; };
 		F4B31B492A27D29E00AEAF59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B31B482A27D29E00AEAF59 /* SceneDelegate.swift */; };
 		F4B31B502A27D29F00AEAF59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B31B4F2A27D29F00AEAF59 /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		F4738DBE2A839854003E2311 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		F49E6B6D2AA4DDD900981E47 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		F49E6B6F2AA4E8FF00981E47 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
+		F4A807982B39C99000EAD698 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		F4B31B432A27D29E00AEAF59 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B31B462A27D29E00AEAF59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B31B482A27D29E00AEAF59 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -348,6 +350,14 @@
 			path = Elements;
 			sourceTree = "<group>";
 		};
+		F4A807972B39C97A00EAD698 /* AuthorizationService */ = {
+			isa = PBXGroup;
+			children = (
+				F4A807982B39C99000EAD698 /* LocalAuthorizationService.swift */,
+			);
+			path = AuthorizationService;
+			sourceTree = "<group>";
+		};
 		F4B31B3A2A27D29E00AEAF59 = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				F4738DB82A838E75003E2311 /* App */,
+				F4A807972B39C97A00EAD698 /* AuthorizationService */,
 				F4620D8F2B32F3F40046CD7C /* NotificationService */,
 				F43953562AF7D5190058B811 /* CoreData */,
 				F4F209552AD5B75000D86400 /* Networking */,
@@ -617,6 +628,7 @@
 				F4620D912B32F4180046CD7C /* LocalNotificationsService.swift in Sources */,
 				F4738DBF2A839854003E2311 /* Login.swift in Sources */,
 				F49E6B6E2AA4DDD900981E47 /* CustomButton.swift in Sources */,
+				F4A807992B39C99000EAD698 /* LocalAuthorizationService.swift in Sources */,
 				F4FD29592A3B2AC600C4A766 /* PostCell.swift in Sources */,
 				F4F209572AD5B77E00D86400 /* NetworkService.swift in Sources */,
 				F4B31B472A27D29E00AEAF59 /* AppDelegate.swift in Sources */,
@@ -838,6 +850,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Resources/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please give permission";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -864,6 +877,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Resources/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Please give permission";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
