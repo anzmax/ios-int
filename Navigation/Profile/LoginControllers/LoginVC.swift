@@ -11,6 +11,7 @@ enum AuthError: Error {
 class LoginVC: UIViewController {
     
     let checkerService: CheckerServiceProtocol = CheckerService()
+    var localAuthorizationService = LocalAuthorizationService()
     
     var currentUserService: UserService
     var loginDelegate: LoginViewControllerDelegate?
@@ -44,6 +45,27 @@ class LoginVC: UIViewController {
                 }
             }
         }
+    
+    lazy var biometryButton = CustomButton(title: NSLocalizedString("Biometry", comment: "")) { [weak self] in
+        self?.localAuthorizationService.authorizeIfPossible { success in
+            DispatchQueue.main.async {
+                if success {
+                    self?.handleSuccessfulAuthorization()
+                } else {
+                    self?.handleFailedAuthorization()
+                }
+            }
+        }
+    }
+    
+    private func handleSuccessfulAuthorization() {
+        print("Успешная авторизация")
+        profileCoordinator.showProfile(coordinator: self.profileCoordinator)
+    }
+
+    private func handleFailedAuthorization() {
+        print("Авторизация не удалась")
+    }
     
     lazy var passwordGenerateButton = CustomButton(title: NSLocalizedString("Generate password", comment: "")) {
         
@@ -221,6 +243,7 @@ class LoginVC: UIViewController {
         contentView.addSubview(passwordGenerateButton)
         contentView.addSubview(activityIndicator)
         contentView.addSubview(createAccountButton)
+        contentView.addSubview(biometryButton)
     }
     
     func setupConstraints() {
@@ -249,6 +272,11 @@ class LoginVC: UIViewController {
             passwordGenerateButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             passwordGenerateButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             passwordGenerateButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            biometryButton.topAnchor.constraint(equalTo: passwordGenerateButton.bottomAnchor, constant: 20),
+            biometryButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            biometryButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            biometryButton.heightAnchor.constraint(equalToConstant: 50),
             
             scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
